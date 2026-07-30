@@ -1,0 +1,1490 @@
+/*===========================================================
+     TERMINAL STYLE 
+  =========================================================== */
+  .terminal {
+    background: #000;
+    border-radius: 10px;
+    border: 1px solid #333;
+    padding: 18px 16px;
+    color: #00ff9d;
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+    margin-top: 22px;
+    min-height: 2.6rem;
+    font-family: "JetBrains Mono", monospace;
+    box-shadow: 
+      0 0 12px rgba(0,255,155,0.12),
+      0 0 22px rgba(0,255,155,0.08);
+  }
+/* ===========================================
+   BLINK CURSOR ANIMATION (identical)
+=========================================== */
+@keyframes blinkCursor {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ===========================================
+   ROOT THEME VARIABLES (identical everywhere)
+=========================================== */
+:root {
+  --graphite: #0d0d0d;
+  --terminal-gray: #1f1f1f;
+  --dusty-byte: #2a2e35;
+  --soft-static: #8a8a8a;
+  --glitch-teal: #00c7a9;
+  --muted-magenta: #c9317e;
+  --code-blue: #3f88c5;
+  --memory-green: #6dd47e;
+  --white: #ffffff;
+}
+
+/* ===========================================
+   GLOBAL BODY (identical gradient)
+=========================================== */
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #1f1f1f 0, #000 55%);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: #e2e2e7;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* ===========================================
+   CLASSIC RUN BUTTON (identical across 6 files)
+=========================================== */
+.run-button {
+  position: relative;
+  padding: 12px 28px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.92rem;
+  letter-spacing: 1px;
+  color: white;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #ff00ff60, #00eaff60);
+  box-shadow: 0 0 14px rgba(255,0,255,0.35);
+  overflow: hidden;
+  transition: 0.15s ease;
+}
+
+.run-button:hover {
+  transform: translateY(-2px) scale(1.04);
+  background: linear-gradient(135deg, #ff00ffaa, #00eaffaa);
+  box-shadow: 0 0 20px rgba(0,255,200,0.4);
+}
+
+/* ===========================================
+   GLITCH TEXT (identical across all run-button pages)
+=========================================== */
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  font-weight: bold;
+}
+
+.glitch-text::before {
+  color: #ff00ffbb;
+  opacity: 0.55;
+  transform: translate(-2px, -1px);
+  clip-path: inset(0 0 55% 0);
+}
+
+.glitch-text::after {
+  color: #00eaffbb;
+  opacity: 0.55;
+  transform: translate(2px, 1px);
+  clip-path: inset(45% 0 0 0);
+}
+
+.run-button:hover .glitch-text::before {
+  animation: glitch-pink 0.25s steps(3) infinite;
+}
+
+.run-button:hover .glitch-text::after {
+  animation: glitch-cyan 0.25s steps(3) infinite;
+}
+
+/* ===========================================
+   GLITCH KEYFRAMES (fully identical everywhere)
+=========================================== */
+@keyframes glitch-pink {
+  0% { transform: translate(-2px, -1px); }
+  33% { transform: translate(-4px, 1px); }
+  66% { transform: translate(-1px, -3px); }
+  100% { transform: translate(-2px, -1px); }
+}
+
+@keyframes glitch-cyan {
+  0% { transform: translate(2px, 1px); }
+  33% { transform: translate(3px, -2px); }
+  66% { transform: translate(1px, 2px); }
+  100% { transform: translate(2px, 1px); }
+}
+
+/* ===========================================
+   SECTION BLOCK (identical left border style)
+=========================================== */
+.section-block {
+  margin-top: 10px;
+  padding-left: 10px;
+  border-left: 2px solid var(--muted-magenta);
+  font-size: 0.9rem;
+}
+
+/* ===========================================
+   SHARED TITLES (identical blue style)
+=========================================== */
+h2,
+.section-title {
+  color: var(--code-blue);
+  text-shadow: 0 0 6px rgba(63,136,197,0.7);
+}
+
+/* ===========================================================
+   HERO SYSTEM — GLOBAL + PAGE-SPECIFIC MAPPINGS (CSS ONLY)
+===========================================================
+   1. HERO BASE (shared on all pages)
+=========================================================== */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.6fr);
+  gap: 24px;
+  align-items: center;
+  margin: 40px auto 20px;
+  padding: 0 20px;
+}
+
+.hero-title {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin: 0 0 4px 0;
+  font-size: 1.5rem;
+  color: var(--memory-green);
+  text-shadow: 0 0 8px rgba(0,255,160,0.5);
+}
+
+/* ===========================================================
+   2. HERO SUBCOMPONENTS (UNIFIED)
+=========================================================== */
+.hero-copy {
+  margin-top: 12px;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: #d4d4dc;
+}
+
+.hero-tagline {
+  font-size: 0.95rem;
+  color: #d4d4dc;
+  min-height: 1.2em;
+}
+
+.hero-tagline span {
+  color: var(--muted-magenta);
+  font-weight: inherit;
+}
+
+/* ===========================================================
+   3. HERO BANNERS — PAGE SPECIFIC USING CSS-ONLY MAPPING
+   -----------------------------------------------------------
+   We detect the page by its unique wrapper:
+   • INDEX = .container (index.css)
+   • VOTE  = .page-container (vote.css)
+=========================================================== 
+   INDEX HERO BANNER
+   (mapping: .container .hero-banner)
+----------------------------------------------------------- */
+.container .hero-banner {
+  border-radius: 18px;
+  border: 2px solid rgba(255,255,255,0.05);
+  background: #000;
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+}
+
+.container .hero-banner::after {
+  content: "system: online";
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  background: rgba(0,0,0,0.6);
+  color: #00ffb7;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-shadow: 0 0 6px #00ffb7;
+}
+
+/* -----------------------------------------------------------
+   VOTE HERO BANNER
+   (mapping: vote page uses .page-container as its root)
+----------------------------------------------------------- */
+.page-container .hero-banner {
+  border-radius: 18px;
+  border: 2px solid rgba(255,255,255,0.05);
+  background: #000;
+  padding: 14px 18px; /* vote-specific padding */
+}
+
+.page-container .hero-banner h3 {
+  margin: 0 0 4px 0;
+  font-size: 0.9rem;
+  color: var(--code-blue);
+}
+
+.page-container .hero-banner p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #d4d4dc;
+}
+
+/* ===========================================================
+   FORM INPUT SYSTEM — UNIFIED
+   =========================================================== */
+/* Input wrappers */
+form label {
+  display: block;
+  font-size: 0.85rem;
+  color: #d4d4dc;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+/* Unified text input + email + select styling */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #33384a;
+  background: #05050a;
+  color: #e4e4e7;
+  font-size: 0.88rem;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Unified focus behavior */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--muted-magenta);
+  box-shadow: 0 0 8px rgba(201,49,126,0.35);
+}
+
+/* Unified placeholder styling */
+input::placeholder,
+textarea::placeholder {
+  color: rgba(228,228,231,0.35);
+}
+
+/* Unified textarea sizing */
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Unified select dropdown arrow (for consistency across browsers) */
+select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-magenta) 50%),
+    linear-gradient(135deg, var(--muted-magenta) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) calc(50% - 4px),
+    calc(100% - 9px) calc(50% + 4px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+/* Error text (universal support for all pages) */
+.input-error {
+  font-size: 0.8rem;
+  color: #ff5577;
+  margin-top: 4px;
+}
+
+/* ===========================================================
+   MODAL SYSTEM — GLOBAL UNIFICATION
+=========================================================== */
+/* 1) MODAL BACKDROP (GLOBAL) */
+.modal,
+.image-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(4px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+/* 2) VISIBILITY TRIGGER */
+.modal.open,
+.image-modal.open {
+  display: flex;
+}
+
+/* 3) MODAL CONTENT WRAPPER */
+.modal-content,
+.image-modal-content {
+  background: #05050a;
+  border-radius: 18px;
+  border: 1px solid #303040;
+  max-width: 90%;
+  max-height: 85%;
+  padding: 16px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.75);
+  animation: modalIn 0.22s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 4) MODAL IMAGES */
+.modal-content img,
+.image-modal-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* 5) MODAL CAPTION */
+.image-modal-caption,
+.modal-caption {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: #d4d4dc;
+  text-align: center;
+}
+
+/* 6) CLOSE BUTTON */
+.modal-close,
+.image-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1rem;
+  transition: 0.15s ease;
+}
+
+.modal-close:hover,
+.image-modal-close:hover {
+  background: rgba(255,255,255,0.10);
+  box-shadow: 0 0 12px rgba(255,255,255,0.25);
+}
+
+/* 7) SCALE-IN ANIMATION */
+@keyframes modalIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===========================================================
+   GLOBAL CONTAINER WRAPPERS (UNIFIED STYLE)
+   -----------------------------------------------------------
+   • Each page ONLY overrides max-width
+   =========================================================== */
+.container-main {
+  margin: 0 auto;
+  padding: 0 20px 30px;
+  background: linear-gradient(
+    to bottom,
+    rgba(16,16,24,0.95),
+    rgba(0,0,0,0.96)
+  );
+  border-radius: 16px;
+  border: 1px solid #252538;
+  box-shadow: 0 0 38px rgba(0,0,0,0.82);
+}
+
+/* ===========================================================
+   PAGE-SPECIFIC WIDTH MAP
+   ===========================================================
+   INDEX
+--------------------------- */
+.container {
+  max-width: 960px;
+}
+/* ---------------------------
+   CREATORS
+--------------------------- */
+.page-creators {
+  max-width: 960px;
+}
+/* ---------------------------
+   LOGIN
+--------------------------- */
+.page-login {
+  max-width: 880px;
+}
+/* ---------------------------
+   SUBMIT
+--------------------------- */
+.page-submit {
+  max-width: 880px;
+}
+/* ---------------------------
+   VOTE
+--------------------------- */
+.page-container {
+  max-width: 1020px;
+}
+/* ---------------------------
+   STORE
+--------------------------- */
+.content {
+  max-width: 1100px;
+}
+/* ---------------------------
+   CREATOR DASHBOARD
+--------------------------- */
+.dashboard-container {
+  max-width: 960px;
+}
+
+/* ===========================================================
+   GLOBAL GRID SYSTEM (UTILITY-BASED)
+   -----------------------------------------------------------
+   These utilities define the layout logic.
+   Page-level selectors then map into them,
+   keeping each page's original card size/purpose.
+   =========================================================== 
+  Smallest cards (Creators) */
+.grid-sm {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+/* Medium cards (Vote) */
+.grid-md {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+/* Large cards (Store) */
+.grid-lg {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+/* ========== GAP UTILITIES ========== */
+/* Standard tight gap for creators + vote */
+.grid-gap-sm {
+  gap: 18px;
+}
+/* Wide gap for store */
+.grid-gap-lg {
+  gap: 30px;
+}
+
+/* ===========================================================
+   PAGE-SPECIFIC GRID MAPPINGS
+-----------------------------------------------------------
+   STORE PAGE — PRODUCT GRID
+   (the largest card sizing + widest spacing)
+----------------------------------------------------------- */
+.grid {
+  /* store.css original behavior */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+/* -----------------------------------------------------------
+   CREATORS PAGE — ARTIST GRID
+   (smallest card size for a dense creator roster)
+----------------------------------------------------------- */
+.artist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+/* -----------------------------------------------------------
+   VOTE PAGE — OPTION CARD GRID
+   (medium card size, tight spacing)
+----------------------------------------------------------- */
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+/* -----------------------------------------------------------
+   FUTURE-PROOF NOTE:
+   If new pages need grids, simply map them here using:
+   .your-grid-class { @apply of .grid-sm or .grid-md or .grid-lg }
+===========================================================
+   GLOBAL CARD SYSTEM
+   -----------------------------------------------------------
+   CARD PHILOSOPHY:
+   - .card-base = shared padding + transitions
+   - .card-product  = Store product cards
+   - .card-profile  = Creators directory cards
+   - .option-card
+   = Vote interactive option cards
+   - Page-specific selectors map into these base types.
+===========================================================
+   1) CARD BASE (GLOBAL)
+   Shared across all pages.
+=========================================================== */
+.card-base {
+  background: #05050a;
+  padding: 12px;
+  border-radius: 12px;
+  transition: 
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ===========================================================
+   2) PAGE-SPECIFIC CARD TYPES
+   These preserve the original visual identity of each page.
+ -----------------------------------------------------------
+   STORE PAGE — PRODUCT CARDS
+   (premium gallery look)
+----------------------------------------------------------- */
+.card-product {
+  background: #05050b;
+  border-radius: 14px;
+  border: 2px solid rgba(255,255,255,0.05);
+  box-shadow: 0 0 22px rgba(0,0,0,0.4);
+}
+
+.card-product:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 35px rgba(255,0,255,0.25);
+}
+
+/* Store images */
+.card-product img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  transition: transform 0.2s ease;
+}
+
+.card-product:hover img {
+  transform: scale(1.05);
+}
+
+/* -----------------------------------------------------------
+   CREATORS PAGE — PROFILE CARDS
+   (clean, reading-friendly, non-interactive)
+----------------------------------------------------------- */
+.card-profile {
+  background: #141420;
+  border-radius: 10px;
+  border: 1px solid #26263a;
+  box-shadow: none;
+  padding: 16px;
+}
+
+/* -----------------------------------------------------------
+   VOTE PAGE — OPTION CARDS
+   (interactive, glitchy, selection-based)
+----------------------------------------------------------- */
+.option-card
+ {
+  background: #0b0b12;
+  border-radius: 18px;
+  border: 1px solid #252538;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.65);
+  transition: 
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* Hover interactivity */
+.option-card
+:hover {
+  transform: translateY(-2px);
+}
+
+.option-card
+ img {
+  width: 100%;
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+}
+
+.option-card
+:hover img {
+  transform: scale(1.05);
+}
+
+/* Selected state */
+.option-card
+.selected {
+  border-color: var(--glitch-teal);
+  box-shadow: 
+    0 0 15px rgba(0,255,200,0.45),
+    0 0 30px rgba(0,255,200,0.25);
+  transform: translateY(-2px);
+}
+
+/* ===========================================================
+   3) PAGE-LEVEL SELECTOR MAPPING
+   -----------------------------------------------------------
+   These map existing HTML classes to the global card system.
+=========================================================== 
+   STORE PAGE */
+.card {
+  /* base + store styling */
+  background: #05050b;
+  padding: 12px;
+  border-radius: 14px;
+  border: 2px solid rgba(255,255,255,0.05);
+  box-shadow: 0 0 22px rgba(0,0,0,0.4);
+}
+
+/* CREATOR PAGE */
+.artist-card {
+  /* base + creator styling */
+  background: #141420;
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid #26263a;
+}
+
+/* ===========================================================
+   GLOBAL BADGE / TAG CHIP SYSTEM
+===========================================================
+   1) BASE BADGE (GLOBAL DEFAULT)
+================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  line-height: 1;
+
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+
+  color: #e4e4e7;
+  background: rgba(255,255,255,0.03);
+
+  white-space: nowrap;
+}
+
+/* ================================
+   2) SIZE VARIANTS
+================================ 
+   Compact (Creators badges) */
+.badge-sm {
+  padding: 3px 8px;
+  font-size: 0.72rem;
+}
+
+/* Standard (Default) */
+.badge-md {
+  padding: 4px 10px;
+  font-size: 0.75rem;
+}
+
+/* Large (rare usage) */
+.badge-lg {
+  padding: 6px 14px;
+  font-size: 0.8rem;
+}
+
+/* ================================
+   3) PAGE-SPECIFIC BADGE VARIANTS
+================================ 
+   Header session badge */
+.badge-header {
+  border-color: rgba(255,255,255,0.10);
+}
+
+/* Creator page tag-chips / badges */
+.badge-creator {
+  border-color: rgba(255,255,255,0.10);
+}
+
+/* Vote page tags */
+.badge-vote {
+  border-color: rgba(255,255,255,0.15);
+}
+
+/* ================================
+   4) PAGE-LEVEL SELECTOR MAPPING
+   (No HTML changes required)
+================================ */
+/* Creators: .tag-chip + .badge */
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+/* Creators: .badge (profile highlights) */
+.artist-card .badge {
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* Header: session badge */
+.session-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+/* ===========================================================
+   GLOBAL WALLET BUTTON SYSTEM (FINAL)
+-----------------------------------------------------------
+   Unifies:
+   • .wallet-btn  (login page)
+   • .wallet-selector-button (vote page)
+=========================================================== */
+/* Base unified wallet button */
+.wallet-btn,
+.wallet-selector-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #00ff9d;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+/* Hover effect */
+.wallet-btn:hover,
+.wallet-selector-button:hover {
+  box-shadow: 0 0 10px rgba(0,255,150,0.35);
+  transform: translateY(-1px);
+}
+
+/* ===========================================================
+   VOTE PAGE — OPTION CARDS (INTERACTIVE)
+=========================================================== */
+.option-card {
+  background: #0b0b12;
+  border-radius: 18px;
+  border: 1px solid #252538;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.65);
+  padding: 12px;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+  z-index: 30;  
+}
+
+.option-card:hover {
+  transform: translateY(-2px);
+}
+
+.option-card img {
+  width: 100%;
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+}
+
+.option-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Selected state */
+.option-card.selected {
+  border-color: var(--glitch-teal);
+  box-shadow:
+    0 0 15px rgba(0,255,200,0.45),
+    0 0 30px rgba(0,255,200,0.25);
+  transform: translateY(-2px);
+}
+
+/* ===========================================================
+   AMBIENT GLITCH OVERLAY
+=========================================================== */
+.card-ambient-glitch {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: screen;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,255,200,0.15) 0px,
+    rgba(0,255,200,0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  animation: ambientGlitch 2.1s steps(4) infinite;
+}
+
+@keyframes ambientGlitch {
+  0%   { transform: translate(0,0);     opacity: 0.22; }
+  35%  { transform: translate(-1px,1px); opacity: 0.27; }
+  65%  { transform: translate(1px,-1px); opacity: 0.23; }
+  100% { transform: translate(0,0);     opacity: 0.25; }
+}
+
+/* ===========================================================
+   GLITCH BURST (ON CARD SELECT / HOVER SPIKES)
+=========================================================== */
+.glitch-burst::before,
+.glitch-burst::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  pointer-events: none;
+  mix-blend-mode: lighten;
+  background: radial-gradient(
+    circle at center,
+    rgba(0,255,200,0.38),
+    transparent 70%
+  );
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.glitch-burst:hover::before,
+.glitch-burst:hover::after {
+  opacity: 0.25;
+  transform: scale(1);
+}
+
+/* ===========================================================
+   CINEMATIC OVERLAY LAYERS
+=========================================================== */
+.cinematic-overlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,255,200,0.05),
+    transparent 60%
+  );
+  mix-blend-mode: screen;
+  opacity: 0.25;
+}
+
+.cinematic-noise {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  /* background-image: url("noise.png"); /* optional, or remove if unused */
+  animation: noiseShift 0.7s steps(4) infinite;
+}
+
+@keyframes noiseShift {
+  0%   { transform: translate(0,0); }
+  25%  { transform: translate(-1px,1px); }
+  50%  { transform: translate(1px,-1px); }
+  75%  { transform: translate(1px,1px); }
+  100% { transform: translate(0,0); }
+}
+
+/* ===========================================================
+   WALLET SELECTOR (VOTE PAGE ONLY)
+=========================================================== */
+.wallet-selector-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(3px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+}
+
+.wallet-selector-backdrop.open {
+  display: flex;
+}
+
+.wallet-selector {
+  background: #0b0b12;
+  border-radius: 12px;
+  border: 1px solid #252538;
+  padding: 18px;
+  width: 320px;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.7);
+  transition: transform 0.25s ease;
+  position: fixed;
+  z-index: 60;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.wallet-wallet-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wallet-wallet-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  background: #05050a;
+  border-radius: 8px;
+  border: 1px solid #33384a;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.wallet-wallet-item:hover {
+  background: #0a0a15;
+  box-shadow: 0 0 10px rgba(0,255,200,0.25);
+}
+
+/* ===========================================================
+   VOTE TAGS (ALREADY UNIFIED INTO BADGE SYSTEM)
+=========================================================== */
+.vote-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #e4e4e7;
+}
+
+/* ===========================================================
+   GLOBAL TYPOGRAPHY SYSTEM (ACTIVE STYLES)
+-----------------------------------------------------------
+   Uses the Major Third scale (1.250) for consistent hierarchy.
+   Applies unified heading, body, small, and tiny text styles.
+   Page-specific classes are mapped without modifying HTML.
+=========================================================== */
+/* ------------------------------
+   HEADING SCALE (Global)
+------------------------------ */
+h1, .h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+h2, .h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+h3, .h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* ------------------------------
+   SMALL / TINY TEXT (Global)
+------------------------------ */
+.small {
+  font-size: 0.8rem;
+  line-height: 1.35;
+  opacity: 0.85;
+}
+
+.tiny {
+  font-size: 0.7rem;
+  line-height: 1.3;
+}
+
+/* ===========================================================
+   PAGE-LEVEL TYPOGRAPHY MAPPING
+-----------------------------------------------------------
+   These selectors reflect existing HTML across all pages and
+   map them into the unified typography scale without changing
+   markup. This ensures perfectly consistent type hierarchy.
+=========================================================== */
+/* ------------------------------
+   HERO ELEMENTS
+------------------------------ */
+.hero-title {
+  font-size: 1.5rem; /* H1 */
+  font-weight: 600;
+  color: var(--memory-green);
+  text-shadow: 0 0 8px rgba(0,255,160,0.5);
+}
+
+.hero-copy {
+  font-size: 0.95rem; /* body */
+  line-height: 1.45;
+}
+
+.hero-tagline {
+  font-size: 0.8rem; /* small */
+  opacity: 0.85;
+}
+
+/* ------------------------------
+   STORE PAGE
+------------------------------ */
+.card .title,
+.card-title {
+  font-size: 1.1rem; /* H3 */
+  font-weight: 600;
+}
+
+.card .description {
+  font-size: 0.95rem; /* body */
+  line-height: 1.45;
+}
+
+.run-button {
+  font-size: 0.92rem; /* slightly stylized variant */
+}
+
+/* ------------------------------
+   CREATORS PAGE
+------------------------------ */
+.creator-name {
+  font-size: 1.1rem; /* H3 */
+  font-weight: 600;
+}
+
+.creator-description {
+  font-size: 0.95rem; /* body */
+  line-height: 1.45;
+}
+
+.tag-chip,
+.artist-card .badge {
+  font-size: 0.7rem; /* tiny */
+}
+
+/* ------------------------------
+   VOTE PAGE
+------------------------------ */
+.option-title {
+  font-size: 1.1rem; /* H3 */
+  font-weight: 600;
+}
+
+.vote-tag {
+  font-size: 0.75rem; /* between tiny/small, correct for badges */
+}
+
+.image-modal-caption {
+  font-size: 0.9rem; /* small-ish caption */
+  opacity: 0.85;
+}
+
+/* ------------------------------
+   LOGIN PAGE
+------------------------------ */
+.login-label {
+  font-size: 0.85rem; /* small */
+}
+
+.login-helper {
+  font-size: 0.75rem; /* tiny/small hybrid */
+  opacity: 0.85;
+}
+
+/* ------------------------------
+   DASHBOARD PAGE (Isolated System)
+------------------------------ */
+.dashboard-container *,
+.dashboard-terminal,
+.dashboard-stats,
+.dashboard-output {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  letter-spacing: 0.3px;
+}
+
+/* ===========================================================
+   GLOBAL FOOTER SYSTEM (ACTIVE STYLES)
+   =========================================================== */
+footer {
+  text-align: center;
+  padding: 25px 10px 40px;
+  font-size: 0.8rem;
+  color: #808089;
+  border-top: 1px solid #222;
+  background: #050507;
+  margin-top: 40px;
+}
+
+footer .x-link {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+footer .x-link a {
+  color: var(--glitch-teal);
+  font-size: 0.9rem;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: 0.2s ease;
+}
+
+footer .x-link a:hover {
+  opacity: 1;
+  color: var(--muted-magenta);
+  text-shadow: 0 0 6px rgba(255,0,255,0.35);
+}
+
+footer .footer-copy {
+  opacity: 0.8;
+  margin-top: 10px;
+}
+
+/* ===========================================================
+   GLOBAL SPACING NORMALIZATION (ACTIVE STYLES)
+=========================================================== */
+/* ---- GLOBAL CONTAINER PADDING ---- */
+.container,
+.page-container,
+.submit-container,
+.creator-dashboard-container {
+  padding: 20px; /* md */
+}
+
+/* ---- SECTION SPACING ---- */
+section {
+  margin-top: 30px; /* lg */
+}
+
+/* First section after hero/banner */
+.hero + section,
+.hero-banner + section {
+  margin-top: 20px; /* md */
+}
+
+/* ---- FORM NORMALIZATION ---- */
+form label {
+  margin-bottom: 6px;
+}
+
+form input,
+form textarea,
+form select {
+  margin-bottom: 15px;
+}
+
+/* ---- BUTTON SPACING ---- */
+button,
+.run-button,
+.wallet-button {
+  margin-top: 12px; /* sm */
+}
+
+/* ---- FOOTER SPACING (already unified) ---- */
+footer {
+  margin-top: 40px; /* xl */
+}
+
+/* ===========================================================
+   GLOBAL ANIMATION NORMALIZATION (ACTIVE)
+=========================================================== */
+/* ---- UI Elements (consistent across pages) ---- */
+button,
+.run-button,
+.wallet-button,
+.card,
+.artist-card {
+  transition: 0.15s ease;
+}
+
+/* Hover image zoom consistency */
+.card img {
+  transition: transform 0.20s ease;
+}
+
+/* Modal transitions */
+.image-modal,
+.wallet-selector-backdrop {
+  transition: opacity 0.25s ease;
+}
+
+.image-modal-content {
+  transition: transform 0.25s ease;
+}
+
+/* Form input focus transitions */
+input,
+textarea,
+select {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Hover expansion */
+button:hover,
+.wallet-button:hover,
+.card:hover {
+  transition: 0.15s ease;
+}
+/* DO NOT MODIFY (vote-only glitch effects) */
+/* ambientGlitch: 2.1s steps(4) */
+/* noiseShift: 0.7s steps(4) */
+/* glitch bursts: 0.12s–0.20s */
+
+/* ===========================================================
+   GLOBAL Z-INDEX NORMALIZATION (ACTIVE STYLES)
+=========================================================== */
+/* ---- BASE CONTENT LAYER ---- */
+.container,
+.page-container,
+.dashboard-container,
+.hero,
+.hero-banner,
+.card,
+.artist-card {
+  position: relative;
+  z-index: 10; /* content tier */
+}
+
+/* ---- HEADER ---- */
+header {
+  position: relative;
+  z-index: 20; /* above content */
+}
+
+/* ---- CINEMATIC / GLITCH LAYERS (Vote Only) ---- */
+.cinematic-overlay,
+.cinematic-noise,
+.card-ambient-glitch,
+.glitch-burst::before,
+.glitch-burst::after {
+  position: absolute;
+  z-index: 30; /* glitch tier */
+}
+
+/* ---- TOOLTIP / DROPDOWN / FUTURE UI ---- */
+.dropdown,
+.tooltip {
+  position: absolute;
+  z-index: 40;
+}
+
+/* ---- MODALS ---- */
+.image-modal,
+.submit-modal,
+.generic-modal {
+  position: fixed;
+  z-index: 50; /* modal tier */
+}
+
+/* ---- WALLET SELECTOR PANEL ---- */
+.wallet-selector-backdrop {
+  position: fixed;
+  z-index: 60; /* above modals */
+}
+
+/* ---- FUTURE: TOAST NOTIFICATIONS ---- */
+.toast,
+.global-alert {
+  position: fixed;
+  z-index: 100; /* highest allowed tier */
+}
+
+/* ===========================================================
+   GLOBAL SCROLL / OVERFLOW NORMALIZATION (ACTIVE)
+=========================================================== */
+/* ---- Prevent horizontal scroll across entire site ---- */
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* ---- Disable body scroll when modals or wallet selector open ---- */
+body.no-scroll {
+  overflow: hidden;
+}
+
+/* ---- Ensure modals scroll internally for tall content ---- */
+.image-modal-content,
+.generic-modal-content {
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+/* ===========================================================
+   GLOBAL FOCUS / ACTIVE ACCESSIBILITY SYSTEM
+=========================================================== */
+/* ---- UNIVERSAL FOCUS RING ---- */
+:focus,
+:focus-visible {
+  outline: 2px solid #00ffca; /* glitch teal */
+  outline-offset: 3px;
+}
+
+/* Remove the default browser outline so only our teal ring shows */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ---- BUTTONS ---- */
+button:focus-visible,
+.run-button:focus-visible,
+.wallet-button:focus-visible {
+  outline: 2px solid #00ffca;
+  outline-offset: 3px;
+}
+
+button:active,
+.run-button:active,
+.wallet-button:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* ---- LINKS ---- */
+a:focus-visible {
+  outline: 2px solid #00ffca;
+  outline-offset: 3px;
+}
+
+/* ---- INPUTS ---- */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  border-color: #00ffca !important;
+  box-shadow: 0 0 8px rgba(0,255,200,0.35);
+  outline: 2px solid #00ffca;
+  outline-offset: 2px;
+}
+
+/* ---- CARDS ---- */
+.card:focus-visible,
+.artist-card:focus-visible,
+.option-card:focus-visible {
+  outline: 2px solid #00ffca;
+  outline-offset: 4px;
+}
+
+.card:active,
+.artist-card:active,
+.option-card:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+/* ---- VOTE-ONLY Focus Overlays ---- */
+.option-card:focus-visible {
+  opacity: 0.4; /* emphasize focus without hiding the ring */
+  z-index: 40; /* raise above glitch layers for visibility */
+
+}
+
+/* ---- MODAL CLOSE BUTTONS ---- */
+.image-modal-close:focus-visible,
+.modal-close:focus-visible {
+  outline: 2px solid #00ffca;
+  outline-offset: 3px;
+}
+
+/* ---- WALLET SELECTOR ---- */
+.wallet-wallet-item:focus-visible {
+  outline: 2px solid #00ffca;
+  outline-offset: 3px;
+}
+
+.wallet-wallet-item:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* ===========================================================
+   Miscellaneous Styles
+=========================================================== */
+/* --- Creator.css --- */
+.creator-image {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.creator-socials a {
+  color: var(--muted-magenta);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+/* --- Store.css --- */
+.price {
+  color: #fff;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+/* --- Submit.css --- */
+.success-message {
+  font-size: 0.9rem;
+  color: #00ff9d;
+  margin-top: 10px;
+}
+
+/* --- Login.css --- */
+.login-container {
+  background: #0b0b12;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #252538;
+  max-width: 400px;
+  margin: 40px auto;
+}

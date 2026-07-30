@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>memetic.exe — manifesto</title>
+  <link rel="stylesheet" href="assets/css/index.css">
+  <link rel="stylesheet" href="assets/css/header.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+</head>
+
+<body>
+
+<!-- SHARED HEADER -->
+<div id="header"></div>
+
+<script defer>
+  fetch("assets/includes/header.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("header").innerHTML = html;
+    })
+    .catch(err => console.error("Header load failed:", err));
+</script>
+
+<section class="hero">
+
+  <h2 class="hero-title">&gt; memes detected... executing anyway.</h2>
+
+  <div class="hero-text">
+
+    <p class="hero-tagline">
+      <span class="tagline-rotating" id="tagline-rotating">Your shirt is shitposting.</span>
+    </p>
+    <p class="hero-copy">
+      memetic.exe compiles internet culture into wearable executables.  
+      No creepy tracking, no data hoarding—just memes, artists, and gear that propagates the signal.
+    </p>
+    <div class="run-button-wrapper">
+      <button class="run-button" onclick="document.getElementById('manifesto').scrollIntoView({behavior:'smooth'});">
+        <span class="label" data-text="run manifesto.exe">run manifesto.exe</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="hero-banner">
+    <img src="assets/images/memeticexe-Shop-Banner.webp" alt="memetic.exe banner" />
+  </div>
+</section>
+
+<div class="container" id="manifesto">
+  <h2 class="section-title">001 — We Believe Memes Are Payloads</h2>
+  <div class="block">
+    A meme is not a joke.<br />
+    A meme is a vector.<br />
+    A packet of meaning, disguised as humor.<br />
+    A shard of culture that wants to <i>move</i>.<br /><br />
+    We don’t “sell shirts.” We ship <b>executables for the culture</b>.<br /><br />
+    Every design is a virus with permission to replicate.
+  </div>
+
+  <h2 class="section-title">002 — The Creators Are the Kernel</h2>
+  <div class="block">
+    No creators, no code.<br />
+    No code, no execution.<br />
+    No execution, no culture.<br /><br />
+    Creators aren’t “suppliers.” They’re the <b>kernel process</b> of memetic.exe.<br />
+    We exist to amplify them — to pay them, to platform them, to turn their ideas into artifacts that travel the world.
+  </div>
+
+  <h2 class="section-title">003 — We Don’t Track You. We Don’t Touch You. We Don’t Store You.</h2>
+  <div class="block">
+    Your data isn’t our business model.<br />
+    Your privacy isn’t our liability.<br />
+    Your identity isn’t our revenue stream.<br /><br />
+    memetic.exe is a <b>stateless program</b>.<br />
+    We compile memes.<br />
+    We execute culture.<br />
+    Nothing more.<br /><br />
+    MerchLabs handles the logistics. We handle the meaning.
+  </div>
+
+  <h2 class="section-title">004 — Wearable Culture Is a Transmission Layer</h2>
+  <div class="block">
+    When you wear a memetic.exe shirt, you become:<br />
+    a host<br />
+    a node<br />
+    a repeater<br />
+    a broadcast tower<br /><br />
+    Your body becomes the billboard for ideas worth replicating.<br /><br />
+    <b>You aren’t “wearing merch.” You’re forwarding a packet.</b>
+  </div>
+
+  <h2 class="section-title">005 — Weird Is a Feature, Not a Bug</h2>
+  <div class="block">
+    Mainstream culture sandpapers everything smooth.<br />
+    We prefer the jagged edges.<br />
+    The strange shapes.<br />
+    The things that would never pass a corporate vibe check.<br /><br />
+    Memetics isn’t safe.<br />
+    It isn’t sanitized.<br />
+    It isn’t optimized for quarterly earnings.<br /><br />
+    It’s chaotic, funny, emotional, stupid, brilliant.<br />
+    And we like it that way.
+  </div>
+
+  <h2 class="section-title">006 — This Is a Collaborative Executable</h2>
+  <div class="block">
+    memetic.exe doesn’t “drop collections.” It <b>compiles updates</b>.<br /><br />
+    Every new design is a patch.<br />
+    Every creator is a contributor.<br />
+    Every post is a commit.<br />
+    Every wearer is a new runtime environment.<br /><br />
+    If you’re here, you’re already part of the build.
+  </div>
+
+  <h2 class="section-title">007 — The Mission</h2>
+  <div class="block">
+    To weaponize creativity.<br />
+    To reward the weirdos.<br />
+    To honor the artists.<br />
+    To turn memes into matter.<br />
+    To make culture you can touch.<br />
+    To make jokes you can wear.<br />
+    To take the internet seriously enough to laugh at it.<br /><br />
+    This is memetic.exe.<br />
+    <b>A program that runs on you.</b>
+  </div>
+</div>
+
+<div id="footer"></div>
+
+<script defer>
+  fetch("assets/includes/footer.html")
+    .then(res => res.text())
+    .then(html => { document.getElementById("footer").innerHTML = html; });
+</script>
+
+<script>
+  // rotating taglines from your GTM doc
+  const taglines = [
+    "Wear your meme.",
+    "Your shirt is shitposting.",
+    "Execute the meme.",
+    "Ideas you can wear.",
+    "Run the meme magic."
+  ];
+  let idx = 0;
+  const el = document.getElementById("tagline-rotating");
+
+  function rotateTagline() {
+    idx = (idx + 1) % taglines.length;
+    el.style.opacity = 0;
+    setTimeout(() => {
+      el.textContent = taglines[idx];
+      el.style.opacity = 1;
+    }, 250);
+  }
+
+  setInterval(rotateTagline, 2600);
+</script>
+<!-- AUTH SYSTEM -->
+<script type="module" src="assets/js/auth.js" defer></script>
+
+</body>
+</html>

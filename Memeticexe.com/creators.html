@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>memetic.exe — creators</title>
+  <link rel="stylesheet" href="assets/css/creators.css">
+  <link rel="stylesheet" href="assets/css/header.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+</head>
+
+<body>
+
+<!-- SHARED HEADER -->
+<div id="header"></div>
+
+<script defer>
+  fetch("assets/includes/header.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("header").innerHTML = html;
+    })
+    .catch(err => console.error("Header load failed:", err));
+</script>
+
+<main class="page">
+  <h2>kernel: current artists</h2>
+  <p class="section-block">
+    These are the humans behind the payloads — our current artists and meme engineers.
+  </p>
+
+  <section class="artist-grid">
+    <article class="artist-card">
+      <div class="artist-handle">@mrsme</div>
+      <div>Concept work across Pork pointing, Pond logo, and More Swaps More Drops.</div>
+      <div class="tag-chip">layout &amp; composition</div>
+    </article>
+
+  </section>
+
+  <h2>royalty tiers — meme execution levels</h2>
+  <p class="section-block">
+    memetic.exe shares revenue on every qualified design. As designs spread, they level up.
+  </p>
+
+  <table class="tiers-table">
+    <thead>
+      <tr>
+        <th>Tier</th>
+        <th>Status</th>
+        <th>Payout (per shirt)</th>
+        <th>Signal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Level 1</td>
+        <td>New Drop</td>
+        <td>$1 / shirt</td>
+        <td><span class="badge">fresh payload</span></td>
+      </tr>
+      <tr>
+        <td>Level 2</td>
+        <td>Fan Favorite</td>
+        <td>$2 / shirt</td>
+        <td><span class="badge">community approved</span></td>
+      </tr>
+      <tr>
+        <td>Level 3</td>
+        <td>Certified Meme Classic</td>
+        <td>$3 / shirt</td>
+        <td><span class="badge">culture locked</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-block" style="margin-top:16px;">
+    Bonus logic:<br />
+    • Extra rewards if a post featuring your design hits 1,000+ likes.<br />
+    • Higher payout bands are possible for exclusive collabs (designing only for memetic.exe).
+  </div>
+
+  <h2>printing blanks — your canvas</h2>
+  <div class="section-block">
+    We currently print on a focused set of blanks to keep quality tight and colors on-brand:
+    <ul>
+      <li><b>Tees:</b> black, white, light gray, soft blue, muted pink, pale yellow</li>
+      <li><b>Hoodies:</b> black, soft gray, ice blue, light sage, dusty pink</li>
+    </ul>
+    When you submit a design, you can suggest preferred blank colors — we’ll match art to the best canvas.
+  </div>
+
+  <h2>roadmap — creator dashboard (phase 2)</h2>
+  <div class="section-block">
+    As the .exe scales, we plan to ship a lightweight creator dashboard showing:
+    <ul>
+      <li>Sales per design</li>
+      <li>Royalties earned</li>
+      <li>Badges like <span class="badge">100 Club</span> and <span class="badge">OG Meme Artist</span></li>
+    </ul>
+    Early on, payouts can run via simple ledgers (Sheets + Stripe/PayPal). Later we’ll hook into more automated systems.
+  </div>
+</main>
+
+<div id="footer"></div>
+
+<script defer>
+  fetch("assets/includes/footer.html")
+    .then(res => res.text())
+    .then(html => { document.getElementById("footer").innerHTML = html; });
+</script>
+<!-- AUTH SYSTEM -->
+<script type="module" src="assets/js/auth.js" defer></script>
+
+</body>
+</html>

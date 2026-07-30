@@ -1,0 +1,39 @@
+/* ============================================
+   SHARED FOOTER (unifies styles across pages)
+   ============================================ */
+
+footer {
+  text-align: center;
+  padding: 25px 10px 40px;
+  font-size: 0.8rem;
+  color: #808089;
+  border-top: 1px solid #222;
+  background: #050507;
+  margin-top: 40px;
+}
+
+/* X FOLLOW LINK */
+footer .x-link {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+footer .x-link a {
+  color: var(--glitch-teal);
+  font-size: 0.9rem;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: 0.2s;
+}
+
+footer .x-link a:hover {
+  opacity: 1;
+  color: var(--muted-magenta);
+  text-shadow: 0 0 6px rgba(255,0,255,0.35);
+}
+
+/* Footer text */
+footer .footer-copy {
+  opacity: 0.8;
+  margin-top: 10px;
+}

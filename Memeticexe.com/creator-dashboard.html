@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>creator-dashboard.exe — memetic.exe</title>
+
+  <!-- ONLY THIS CSS IS USED -->
+  <link rel="stylesheet" href="assets/css/creator-dashboard.css" />
+  <link rel="stylesheet" href="assets/css/header.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+  <script type="module" src="assets/js/auth.js" defer></script>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div id="header"></div>
+<script>
+  fetch("assets/includes/header.html")
+    .then(r => r.text())
+    .then(html => { document.getElementById("header").innerHTML = html });
+</script>
+
+<main class="page-container">
+
+  <h2 class="page-title">&gt; creator-dashboard.exe</h2>
+
+  <!-- Terminal -->
+  <div class="terminal">
+    <span id="terminalText"></span><span id="cursor">█</span>
+  </div>
+
+  <!-- Dashboard -->
+  <section class="dashboard-grid">
+
+    <!-- Identity Card -->
+    <div class="dash-card">
+      <h3 class="card-title">creator identity</h3>
+
+      <div class="row"><span>status:</span> <span id="creatorStatus" class="tag">verified creator</span></div>
+      <div class="row"><span>wallet:</span> <span id="creatorWallet" class="mono"></span></div>
+      <div class="row"><span>session:</span> <span id="creatorSession" class="mono"></span></div>
+    </div>
+
+    <!-- Action Card -->
+    <div class="dash-card">
+      <h3 class="card-title">creator actions</h3>
+
+      <button class="run-button action-btn" id="goSubmissions">
+        <span class="glitch-text" data-text="submit new design">submit new design</span>
+      </button>
+
+      <button class="run-button action-btn" id="goCreatorsPage">
+        <span class="glitch-text" data-text="view creator page">view creator page</span>
+      </button>
+
+      <button class="run-button action-btn" id="goStore">
+        <span class="glitch-text" data-text="view store listings">view store listings</span>
+      </button>
+    </div>
+
+    <!-- Stats Card -->
+    <div class="dash-card">
+      <h3 class="card-title">creator stats</h3>
+
+      <div class="row"><span>total submissions:</span> <span class="mono">N/A</span></div>
+      <div class="row"><span>approved designs:</span> <span class="mono">N/A</span></div>
+      <div class="row"><span>lifetime earnings:</span> <span class="mono">$0.00</span></div>
+
+      <p class="note">earnings are handled by MerchLabs automatically — no wallet payouts required.</p>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<div id="footer"></div>
+<script>
+  fetch("assets/includes/footer.html")
+    .then(r => r.text())
+    .then(html => { document.getElementById("footer").innerHTML = html });
+</script>
+
+<!-- JS -->
+<script type="module">
+  import { getSession, setRedirect } from "./assets/js/auth.js";
+
+  const session = getSession();
+
+  // Gate
+  if (!session || !session.creator) {
+    setRedirect("creator-dashboard.html");
+    window.location.href = "login.html";
+  }
+
+ // Terminal typewriter
+const term = document.getElementById("terminalText");
+
+function typewrite(lines, speed = 24) {
+  const full = lines.join("\n");  // build one exact string
+  term.textContent = "";
+  let i = 0;
+
+  (function step() {
+    if (i >= full.length) return;
+    term.textContent += full[i++];
+    setTimeout(step, speed);
+  })();
+}
+
+typewrite([
+  "> verified creator detected.",
+  "    > dashboard access granted.",
+]);
+
+  // Fill identity
+  document.getElementById("creatorWallet").textContent =
+    session.addressHashed;
+
+  document.getElementById("creatorSession").textContent =
+    session.method + " login";
+
+  // Buttons
+  document.getElementById("goSubmissions").onclick = () => window.location.href = "submit.html";
+  document.getElementById("goCreatorsPage").onclick = () => window.location.href = "creators.html";
+  document.getElementById("goStore").onclick = () => window.location.href = "store.html";
+</script>
+
+</body>
+</html>

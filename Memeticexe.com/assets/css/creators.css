@@ -1,0 +1,109 @@
+    :root {
+      --graphite: #0d0d0d;
+      --terminal-gray: #1f1f1f;
+      --dusty-byte: #2a2e35;
+      --muted-magenta: #c9317e;
+      --glitch-teal: #00c7a9;
+      --code-blue: #3f88c5;
+      --memory-green: #6dd47e;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #1f1f1f 0, #000 55%);
+      color: #e4e4e7;
+      font-family: "Courier New", monospace;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 30px auto 60px;
+      padding: 0 20px 30px;
+      background: linear-gradient(to bottom, rgba(16,16,24,0.95), rgba(0,0,0,0.96));
+      border-radius: 16px;
+      border: 1px solid #252538;
+      box-shadow: 0 0 35px rgba(0,0,0,0.8);
+    }
+
+    h2 {
+      margin-top: 28px;
+      color: var(--code-blue);
+      text-shadow: 0 0 6px rgba(63,136,197,0.7);
+    }
+
+    .artist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+      margin-top: 12px;
+    }
+
+    .artist-card {
+      background: #141420;
+      border-radius: 10px;
+      padding: 14px;
+      border: 1px solid #26263a;
+    }
+
+    .artist-handle {
+      color: var(--glitch-teal);
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .tag-chip {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.7rem;
+      margin-top: 6px;
+      color: var(--soft-static, #8a8a8a);
+    }
+
+    .section-block {
+      margin-top: 10px;
+      padding-left: 10px;
+      border-left: 2px solid var(--muted-magenta);
+      font-size: 0.9rem;
+    }
+
+    ul {
+      padding-left: 18px;
+      font-size: 0.9rem;
+    }
+
+    .tiers-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+
+    .tiers-table th,
+    .tiers-table td {
+      border: 1px solid #33384a;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .tiers-table th {
+      background: #181824;
+      color: #e4e4e7;
+    }
+
+    .tiers-table td {
+      background: #101018;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      margin-right: 4px;
+    }

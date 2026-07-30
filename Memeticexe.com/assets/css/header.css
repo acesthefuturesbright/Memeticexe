@@ -1,0 +1,239 @@
+/* ============================================
+   Shared Header Component (Universal + Consistent)
+   ============================================ */
+
+:root {
+  --muted-magenta: #c9317e;
+  --glitch-teal: #00c7a9;
+  --white: #ffffff;
+  --memory-green: #6dd47e; /* same green you’ve used elsewhere */
+  --code-blue: #4da8ff;    /* clean neon/cyber blue */
+}
+
+
+/* RESET ALL DEFAULT SPACING *INSIDE THE HEADER ONLY**/
+header,
+header * {
+  margin: 0;
+  padding: 0;
+  font-family: "Courier New", monospace;
+  line-height: 1.35;    
+  box-sizing: border-box;
+}
+
+/* CORE HEADER LAYOUT */
+header {
+  padding: 20px 20px 12px;
+  text-align: center;
+  border-bottom: 1px solid #333;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  backdrop-filter: blur(12px);
+}
+
+/* LOGO */
+.logo {
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  max-height: 180px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 17px;
+  filter: drop-shadow(0 0 12px #ff00ff) drop-shadow(0 0 8px #00f0ff);
+}
+
+/* TITLE (currently blank but kept for future use) */
+header h1 {
+  margin-bottom: 6px;
+  font-size: 2.1rem;
+  letter-spacing: 2px;
+  text-transform: lowercase;
+  color: #ffffff;
+  text-shadow: 0 0 8px #7f5fff;
+}
+
+/* SUBTITLE */
+header .subtitle {
+  font-size: 0.9rem;
+  color: var(--white);
+  opacity: 0.95;
+  margin-bottom: 10px;   /* sets clean uniform gap to nav */
+}
+
+/* NAVIGATION */
+header nav {
+  font-size: 0.9rem;
+  margin-top: 2px;       /* subtle anchor spacing */
+}
+
+header nav a {
+  margin: 0 14px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid transparent;
+  color: var(--glitch-teal);
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+header nav a:hover {
+  color: var(--glitch-teal);
+  border-bottom-color: var(--muted-magenta);
+}
+
+/* ============================
+   NAV LINK GLITCH ANIMATION
+   (animation only – no style)
+   ============================ */
+
+/* prepare nav container so links can use relative positioning */
+header nav a {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+}
+
+/* ghost layers for glitch effect */
+header nav a::before,
+header nav a::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* pink ghost */
+header nav a::before {
+  color: #ff00ffcc;
+  transform: translate(-2px, -1px);
+}
+
+/* cyan ghost */
+header nav a::after {
+  color: #00eaffcc;
+  transform: translate(2px, 1px);
+}
+
+/* trigger animation */
+header nav a:hover::before {
+  opacity: 0.55;
+  animation: glitch-pink 0.25s steps(3) infinite;
+}
+
+header nav a:hover::after {
+  opacity: 0.55;
+  animation: glitch-cyan 0.25s steps(3) infinite;
+}
+
+/* keyframes taken from store.css */
+@keyframes glitch-pink {
+  0% { transform: translate(-2px, -1px); }
+  33% { transform: translate(-4px, 1px); }
+  66% { transform: translate(-1px, -3px); }
+  100% { transform: translate(-2px, -1px); }
+}
+
+@keyframes glitch-cyan {
+  0% { transform: translate(2px, 1px); }
+  33% { transform: translate(3px, -2px); }
+  66% { transform: translate(1px, 2px); }
+  100% { transform: translate(2px, 1px); }
+}
+
+/* Makes the header an absolute-position container */
+.header-inner {
+  position: relative;
+}
+
+.header-actions {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2000;
+}
+
+.account-button {
+  display: inline-block;
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: var(--glitch-teal);
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: 0.22s ease;
+}
+
+.account-button:hover {
+  color: var(--muted-magenta);
+  border-color: var(--muted-magenta);
+  box-shadow: 0 0 10px rgba(255,0,255,0.35),
+              0 0 6px rgba(0,255,200,0.25);
+  transform: translateY(-2px);
+}
+
+/* ============================
+   SESSION BADGE
+============================ */
+
+.session-badge {
+  margin-right: 10px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(6px);
+  color: var(--glitch-teal);
+  display: none; /* hidden by default */
+}
+
+.session-badge.wallet {
+  color: var(--memory-green);
+  border-color: var(--memory-green);
+}
+.session-badge.device {
+  color: var(--muted-magenta);
+  border-color: var(--muted-magenta);
+}
+.session-badge.email {
+  color: var(--code-blue);
+  border-color: var(--code-blue);
+}
+
+.creator-badge {
+  margin-right: 10px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid var(--muted-magenta);
+  color: var(--muted-magenta);
+  backdrop-filter: blur(6px);
+  display: none;
+}
+
+.creator-nav {
+  margin-left: 14px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid transparent;
+  color: var(--muted-magenta);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.2s;
+}
+
+.creator-nav:hover {
+  border-bottom-color: var(--glitch-teal);
+}

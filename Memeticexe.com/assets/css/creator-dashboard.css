@@ -1,0 +1,219 @@
+/* =========================================
+   COLOR VARIABLES (from your theme)
+========================================= */
+:root {
+  --glitch-teal: #00c7a9;
+  --muted-magenta: #c9317e;
+  --white: #ffffff;
+  --memory-green: #6dd47e;
+  --code-blue: #3f88c5;
+}
+
+/* =========================================
+   GLOBAL BACKGROUND + TEXT
+========================================= */
+body {
+  margin: 0;
+  background: #000;
+  color: var(--white);
+  font-family: inherit;
+}
+
+/* =========================================
+   PAGE CONTAINER
+========================================= */
+.page-container {
+  max-width: 960px;
+  margin: 40px auto 60px;
+  padding: 0 20px;
+}
+
+/* =========================================
+   PAGE TITLE
+========================================= */
+.page-title {
+  grid-column: 1 / -1;            /* spans entire hero width */
+  width: 100%;                    /* respects hero padding */
+  margin: 0 0 0 0;             /* spacing under title */
+  padding-right: 20px;
+  margin-bottom: 4px;
+  font-size: 1.5rem;
+  color: var(--memory-green);
+  text-shadow: 0 0 8px rgba(0,255,160,0.5);
+  box-sizing: border-box;
+}
+
+/* =========================================
+   TERMINAL (vote/login clone)
+========================================= */
+.terminal {
+  background: #000;
+  border: 1px solid #1a1a1a;
+  border-radius: 10px;
+  padding: 16px;
+  color: #00ff9d;
+  font-size: 0.9rem;
+  white-space: pre; /* or pre-wrap, but pre is closer to a terminal */
+  margin-bottom: 32px;
+  box-shadow: 0 0 12px rgba(0,255,155,0.10);
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+               Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+
+/* =========================================
+   GRID
+========================================= */
+.dashboard-grid {
+  display: grid;
+  gap: 26px;
+  grid-template-columns: 1fr;
+}
+
+/* =========================================
+   DASHBOARD CARDS (match creators.html)
+========================================= */
+.dash-card {
+  background: #0a0a0d;
+  border: 1px solid #1b1b23;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 0 22px rgba(0,0,0,0.35);
+}
+
+.card-title {
+  color: var(--code-blue);
+  font-size: 1rem;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+  letter-spacing: 1px;
+}
+
+/* =========================================
+   ROWS INSIDE PANELS
+========================================= */
+.row {
+  display: flex;
+  color: var(--muted-magenta);
+  justify-content: space-between;
+  margin: 8px 0;
+  font-size: 0.9rem;
+}
+
+.mono {
+  font-family: "JetBrains Mono", monospace;
+  color: var(--glitch-teal);
+}
+
+/* =========================================
+   TAG
+========================================= */
+.tag {
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--glitch-teal);
+  background: rgba(0,255,150,0.12);
+  font-size: 0.75rem;
+  color: var(--glitch-teal);
+}
+
+/* =========================================
+   NOTE
+========================================= */
+.note {
+  margin-top: 14px;
+  opacity: 0.65;
+  font-size: 0.8rem;
+}
+
+/************ HEAVY GLITCH TEXT BUTTON ************/
+    .run-button {
+      position: relative;
+      padding: 12px 28px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.92rem;
+      letter-spacing: 1px;
+      color: white;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ff00ff60, #00eaff60);
+      box-shadow: 0 0 14px rgba(255,0,255,0.35);
+      overflow: hidden;
+      transition: 0.15s ease;
+      width: 100%;
+      margin: 14px 0;
+    }
+
+    .run-button:hover {
+      transform: translateY(-2px) scale(1.04);
+      background: linear-gradient(135deg, #ff00ffaa, #00eaffaa);
+      box-shadow: 0 0 20px rgba(0,255,200,0.4);
+    }
+
+    .glitch-text {
+      position: relative;
+      display: inline-block;
+    }
+
+    .glitch-text::before,
+    .glitch-text::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      font-weight: bold;
+    }
+
+    .glitch-text::before {
+      color: #ff00ffbb;
+      opacity: 0.55;
+      transform: translate(-2px, -1px);
+      clip-path: inset(0 0 55% 0);
+    }
+
+    .glitch-text::after {
+      color: #00eaffbb;
+      opacity: 0.55;
+      transform: translate(2px, 1px);
+      clip-path: inset(45% 0 0 0);
+    }
+
+    .run-button:hover .glitch-text::before {
+      animation: glitch-pink 0.25s steps(3) infinite;
+    }
+    .run-button:hover .glitch-text::after {
+      animation: glitch-cyan 0.25s steps(3) infinite;
+    }
+
+    @keyframes glitch-pink {
+      0% { transform: translate(-2px, -1px); }
+      33% { transform: translate(-4px, 1px); }
+      66% { transform: translate(-1px, -3px); }
+      100% { transform: translate(-2px, -1px); }
+    }
+
+    @keyframes glitch-cyan {
+      0% { transform: translate(2px, 1px); }
+      33% { transform: translate(3px, -2px); }
+      66% { transform: translate(1px, 2px); }
+      100% { transform: translate(2px, 1px); }
+    }
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+@media (min-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dash-card:last-child {
+    grid-column: span 2;
+  }
+}

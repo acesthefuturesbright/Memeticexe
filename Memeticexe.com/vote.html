@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>memetic.exe — vote.exe</title>
+
+  <link rel="stylesheet" href="assets/css/vote.css" />
+  <link rel="stylesheet" href="assets/css/header.css" />
+  <link rel="stylesheet" href="assets/css/footer.css" />
+
+  <!-- Auth System -->
+  <script type="module" src="assets/js/auth.js" defer></script>
+</head>
+
+<body>
+
+<!-- ==============================
+     SHARED HEADER
+================================== -->
+<div id="header"></div>
+<script defer>
+  fetch("assets/includes/header.html")
+    .then(res => res.text())
+    .then(html => (document.getElementById("header").innerHTML = html));
+</script>
+
+<!-- ==============================
+     HERO
+================================== -->
+<section class="hero">
+  <h2 class="hero-title">&gt; vote.exe — select the next payload.</h2>
+
+  <div class="hero-text">
+    <p class="hero-tagline">
+      <span>Hybrid voting: anonymous device + wallet verification.</span>
+    </p>
+    <p class="hero-copy">
+      One vote per human per poll. No emails. No accounts. Zero tracking.
+    </p>
+  </div>
+
+  <aside class="hero-banner">
+    <h3>voting kernel status</h3>
+    <p><span class="vote-tag">stateless</span> <span class="vote-tag">anonymous</span></p>
+    <p><span class="vote-tag">anti-duplication</span> <span class="vote-tag">no emails</span></p>
+    <p style="margin-top:10px; font-size:0.8rem; color:#8a8a9a;">
+      Click a card to select. Click the image to zoom.<br>
+      Wallet login only verifies uniqueness.
+    </p>
+  </aside>
+</section>
+
+
+<!-- ==============================
+     MAIN
+================================== -->
+<main class="page-container">
+
+  <h2 class="section-title">current poll — which payload ships next?</h2>
+  <p class="section-block" id="pollPrompt"></p>
+
+  <!-- SELECTION UI -->
+  <section id="voteSection" class="vote-form" style="display:none;">
+    <h3 style="color:var(--code-blue); margin-top:0;">cast your vote</h3>
+
+    <div id="optionGrid" class="option-grid"></div>
+
+    <div class="vote-actions">
+      <button id="submitVoteBtn" class="run-button" disabled>
+        <span class="glitch-text" data-text="submit vote">submit vote</span>
+      </button>
+
+      <div class="hint">
+        Your choices are anonymous. Wallet login never stores your address.
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMINAL -->
+  <div class="terminal">
+    <span id="statusText"></span>
+    <span id="statusCursor">█</span>
+  </div>
+
+</main>
+
+
+<!-- ==============================
+     FULLSCREEN IMAGE MODAL
+================================== -->
+<div id="imageModal" class="image-modal">
+  <div class="image-modal-backdrop"></div>
+  <div class="image-modal-content">
+    <button id="imageModalClose" class="image-modal-close">×</button>
+    <img id="imageModalImg" src="" alt="" />
+    <div id="imageModalCaption" class="image-modal-caption"></div>
+  </div>
+</div>
+
+<!-- ==============================
+     CINEMATIC OVERLAY
+================================== -->
+<div id="cinematicOverlay" class="cinematic-overlay">
+  <div class="cinematic-noise"></div>
+  <div class="cinematic-message" id="cinematicMessage"></div>
+</div>
+
+<!-- ==============================
+     SHARED FOOTER
+================================== -->
+<div id="footer"></div>
+<script defer>
+  fetch("assets/includes/footer.html")
+    .then(res => res.text())
+    .then(html => (document.getElementById("footer").innerHTML = html));
+</script>
+
+<!-- ==============================
+     VOTE LOGIC
+================================== -->
+<script type="module">
+
+/* ------------------------------------------------------------
+   IMPORT AUTH SYSTEM
+------------------------------------------------------------- */
+import {
+  getSession,
+  setRedirect,
+  detectWalletProviders,
+  loginWallet,
+  loginDevice
+} from "./assets/js/auth.js";
+
+/* ------------------------------------------------------------
+   POLL CONFIG
+------------------------------------------------------------- */
+
+const POLL_MODE = "single";
+const pollId = "test12";
+
+const POLL_PROMPT = `
+  <b>Which drop should memetic.exe prioritize next?</b><br>
+  Choose your preferred payload card below.
+`;
+
+const GOOGLE_FORM_ACTION =
+  "https://docs.google.com/forms/d/e/1FAIpQLScimWv4b0YYYqV_cUe9mnuCok-cexESAyun1ZDqbJjoyaAXPg/formResponse";
+
+const ENTRY_SINGLE_OPTION = "entry.2031397609";
+const ENTRY_MULTI_OPTION  = "entry.90656113";
+const ENTRY_POLL_ID       = "entry.1250161899";
+const ENTRY_OPTION_TEXT   = "entry.173065955";
+const ENTRY_LOGIN_METHOD  = "entry.551849415";
+
+const POLL_OPTIONS = [
+  {
+    text: "Pork capsule — Variant B",
+    img: "assets/images/everything-tee-natural.jpg",
+    alt: "Pork Variant B mockup",
+    single: "S1",
+    multi: "M1"
+  },
+  {
+    text: "Everything You Do Matters — Hoodie Expansion",
+    img: "assets/images/memeticexe---Pork-Tee.jpg",
+    alt: "Everything You Do Matters hoodie",
+    single: "S2",
+    multi: "M2"
+  },
+  {
+    text: "New Meme Payload Concept",
+    img: "assets/images/oxpond-tee-white.jpg",
+    alt: "New Meme Payload artwork",
+    single: "S3",
+    multi: "M3"
+  },
+  {
+    text: "Special Collab Drop",
+    img: "assets/images/special-collab.png",
+    alt: "",
+    single: "S4",
+    multi: "M4"
+  }
+];
+
+/* ------------------------------------------------------------
+   DOM REFS
+------------------------------------------------------------- */
+
+document.getElementById("pollPrompt").innerHTML = POLL_PROMPT;
+
+const optionGrid = document.getElementById("optionGrid");
+const voteSection = document.getElementById("voteSection");
+const statusText = document.getElementById("statusText");
+const submitButton = document.getElementById("submitVoteBtn");
+
+const imageModal = document.getElementById("imageModal");
+const imageModalImg = document.getElementById("imageModalImg");
+const imageModalCaption = document.getElementById("imageModalCaption");
+
+/* ------------------------------------------------------------
+   TYPEWRITER
+------------------------------------------------------------- */
+function typewriter(lines, speed = 22, onComplete = null) {
+  statusText.className = "";
+  statusText.textContent = "";
+
+  let i = 0, j = 0;
+
+  function type() {
+    if (i >= lines.length) {
+      if (onComplete) onComplete();
+      return;
+    }
+
+    const line = lines[i];
+    if (j === 0 && i > 0) statusText.textContent += "\n";
+    statusText.textContent += line[j];
+    j++;
+
+    if (j < line.length) {
+      setTimeout(type, speed);
+    } else {
+      j = 0;
+      i++;
+      setTimeout(type, speed * 12);
+    }
+  }
+
+  type();
+}
+
+/* ------------------------------------------------------------
+   REQUIRE LOGIN
+------------------------------------------------------------- */
+const session = getSession();
+
+if (!session) {
+  const container = document.querySelector(".page-container-vote");
+
+  // Clear everything except the terminal
+  document.querySelector("#voteSection").style.display = "none";
+
+  // Terminal message
+  typewriter([
+    "> authentication required.",
+    "> login to continue:"
+  ], 24);
+
+  // Create login button
+  const btn = document.createElement("button");
+  btn.className = "run-button";
+  btn.style.marginTop = "20px";
+  btn.innerHTML = `<span class="glitch-text" data-text="login.exe">login.exe</span>`;
+
+  btn.onclick = () => {
+    setRedirect("vote.html");
+    window.location.href = "login.html";
+  };
+
+  container.appendChild(btn);
+
+  // Stop script execution
+  throw new Error("Not authenticated");
+}
+
+
+/* If authenticated, continue */
+voteSection.style.display = "block";
+
+typewriter(["> session verified.", "> loading vote.exe..."], 24, () => {
+  typewriter(["> select a card."], 24);
+});
+
+/* ------------------------------------------------------------
+   IMAGE MODAL HANDLERS
+------------------------------------------------------------- */
+
+document.querySelector(".image-modal-backdrop").addEventListener("click", closeImageModal);
+document.getElementById("imageModalClose").addEventListener("click", closeImageModal);
+
+function openImageModal(src, alt, caption) {
+  imageModalImg.src = src;
+  imageModalImg.alt = alt || caption;
+  imageModalCaption.textContent = caption;
+  imageModal.classList.add("open");
+  document.body.classList.add("no-scroll");
+}
+
+function closeImageModal() {
+  imageModal.classList.remove("open");
+  imageModalImg.src = "";
+  document.body.classList.remove("no-scroll");
+}
+
+/* ------------------------------------------------------------
+   GENERATE POLL OPTION CARDS
+------------------------------------------------------------- */
+
+const optionInputs = [];
+const optionCards  = [];
+
+POLL_OPTIONS.forEach((opt) => {
+  const card = document.createElement("div");
+  card.className = "option-card";
+
+  const inner = document.createElement("div");
+  inner.className = "option-card-inner";
+
+  if (opt.img) {
+    const imgWrap = document.createElement("div");
+    imgWrap.className = "option-image";
+    const img = document.createElement("img");
+    img.src = opt.img;
+    img.alt = opt.alt || opt.text;
+    imgWrap.appendChild(img);
+    inner.appendChild(imgWrap);
+
+    imgWrap.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openImageModal(opt.img, opt.alt || opt.text, opt.text);
+    });
+  }
+
+  const footer = document.createElement("div");
+  footer.className = "option-footer";
+
+  const label = document.createElement("div");
+  label.className = "option-text";
+  label.textContent = opt.text;
+
+  const checkboxWrap = document.createElement("label");
+  checkboxWrap.className = "option-checkbox-label";
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.name = "voteOption";
+  checkbox.value = opt.text;
+
+  checkbox.dataset.codeSingle = opt.single;
+  checkbox.dataset.codeMulti  = opt.multi;
+
+  const checkSpan = document.createElement("span");
+  checkSpan.className = "checkbox-caption";
+  checkSpan.textContent = "select";
+
+  checkboxWrap.appendChild(checkbox);
+  checkboxWrap.appendChild(checkSpan);
+
+  footer.appendChild(label);
+  footer.appendChild(checkboxWrap);
+  inner.appendChild(footer);
+
+  const ambient = document.createElement("div");
+  ambient.className = "card-ambient-glitch";
+
+  card.appendChild(inner);
+  card.appendChild(ambient);
+
+  card.addEventListener("click", (e) => {
+    if (
+      e.target.tagName === "INPUT" ||
+      e.target.classList.contains("checkbox-caption") ||
+      e.target.classList.contains("option-checkbox-label")
+    ) return;
+
+    checkbox.checked = !checkbox.checked;
+    handleSelectionChange(checkbox);
+  });
+
+  checkbox.addEventListener("click", (e) => e.stopPropagation());
+  checkbox.addEventListener("change", () => handleSelectionChange(checkbox));
+
+  optionGrid.appendChild(card);
+  optionInputs.push(checkbox);
+  optionCards.push(card);
+});
+
+/* ------------------------------------------------------------
+   SELECTION LOGIC
+------------------------------------------------------------- */
+
+function handleSelectionChange(changed) {
+
+  if (POLL_MODE === "single" && changed.checked) {
+    optionInputs.forEach((i, idx) => {
+      if (i !== changed) {
+        i.checked = false;
+        optionCards[idx].classList.remove("selected");
+      }
+    });
+  }
+
+  optionInputs.forEach((i, idx) => {
+    const card = optionCards[idx];
+    if (i.checked) {
+      const firstSelect = !card.classList.contains("selected");
+      card.classList.add("selected");
+
+      if (firstSelect) {
+        card.classList.add("glitch-burst");
+        setTimeout(() => card.classList.remove("glitch-burst"), 350);
+      }
+    } else {
+      card.classList.remove("selected");
+    }
+  });
+
+  submitButton.disabled = !optionInputs.some(i => i.checked);
+
+  const msg = submitButton.disabled
+    ? "> select a card."
+    : "> ready to submit vote.";
+
+  typewriter([msg]);
+}
+
+/* ------------------------------------------------------------
+   SUBMIT VOTE
+------------------------------------------------------------- */
+
+submitButton.addEventListener("click", async () => {
+
+  const selected = optionInputs.filter(i => i.checked);
+
+  if (!selected.length) return;
+
+  if (POLL_MODE === "single" && selected.length > 1) {
+    typewriter(["> single-choice poll. only one allowed."], 22);
+    return;
+  }
+
+  const form = new FormData();
+  form.append(ENTRY_POLL_ID, pollId);
+
+  // session -> loginMethod
+  const session = getSession();
+  form.append(ENTRY_LOGIN_METHOD, session.method);
+
+  const optionPayload = selected.map(i => i.value).join("; ");
+  form.append(ENTRY_OPTION_TEXT, optionPayload);
+
+  if (POLL_MODE === "single") {
+    form.append(ENTRY_SINGLE_OPTION, selected[0].dataset.codeSingle);
+  } else {
+    selected.forEach(i => form.append(ENTRY_MULTI_OPTION, i.dataset.codeMulti));
+  }
+
+  typewriter(["> submitting vote..."]);
+
+  try {
+    await fetch(GOOGLE_FORM_ACTION, {
+      method: "POST",
+      mode: "no-cors",
+      body: form
+    });
+
+    // Prevent multiple votes
+    if (session.method === "wallet") {
+      localStorage.setItem("memetic_wallet_voted_" + pollId, "true");
+    } else {
+      localStorage.setItem("memetic_device_voted_" + pollId, "true");
+    }
+
+    submitButton.disabled = true;
+
+    // CONFIRMATION
+    typewriter(["> vote recorded."], 22, () => {
+      setTimeout(() => {
+
+        const shutdownLines = [
+          "> anonymizing session keys...",
+          "> closing vote.exe session...",
+          "> shutting down vote.exe..."
+        ];
+
+        typewriter(shutdownLines, 22, () => {
+          document.body.classList.add("cinematic-mode");
+          document.getElementById("cinematicMessage").textContent =
+            "memetic.exe — vote.exe terminated.\n" +
+            "culture propagated.";
+          document.getElementById("cinematicOverlay").classList.add("active");
+
+          setTimeout(() => {
+            window.location.href = "store.html";
+          }, 2200);
+        });
+
+      }, 300);
+    });
+
+  } catch (err) {
+    console.error(err);
+    typewriter(["> network error — vote may not be recorded."], 22);
+  }
+});
+
+/* ------------------------------------------------------------
+   ON LOAD (SESSION VERIFIED)
+------------------------------------------------------------- */
+
+window.addEventListener("DOMContentLoaded", () => {
+  typewriter(["> initializing vote.exe...", "> loading payload options...", "> select a card."], 22);
+});
+
+</script>
+
+</body>
+</html>

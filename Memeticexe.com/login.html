@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>login.exe — memetic.exe</title>
+
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="assets/css/header.css" />
+  <link rel="stylesheet" href="assets/css/footer.css" />
+  <link rel="stylesheet" href="assets/css/login.css" />
+
+  <!-- Auth System -->
+  <script type="module" src="assets/js/auth.js" defer></script>
+</head>
+
+<body>
+
+<!-- SHARED HEADER -->
+<div id="header"></div>
+<script>
+  fetch("assets/includes/header.html")
+    .then(r => r.text())
+    .then(html => document.getElementById("header").innerHTML = html);
+</script>
+
+<main class="page">
+
+  <h2 class="page-title">login.exe</h2>
+
+  <div class="terminal">
+    <span id="terminalText"></span><span id="cursor">█</span>
+  </div>
+
+  <div class="login-options">
+    <button id="btnDevice" class="run-button">
+      <span class="glitch-text" data-text="continue anonymously">continue anonymously</span>
+    </button>
+
+    <button id="btnWallet" class="run-button">
+      <span class="glitch-text" data-text="login with wallet">login with wallet</span>
+    </button>
+
+    <button id="btnEmail" class="run-button">
+      <span class="glitch-text" data-text="login with email">login with email</span>
+    </button>
+  </div>
+
+</main>
+
+<!-- SHARED FOOTER -->
+<div id="footer"></div>
+<script>
+  fetch("assets/includes/footer.html")
+    .then(r => r.text())
+    .then(html => document.getElementById("footer").innerHTML = html);
+</script>
+
+<!-- WALLET SELECTOR OVERLAY -->
+<div id="walletOverlay" class="wallet-overlay">
+  <div class="wallet-popup">
+    <div class="wallet-bezel">
+      <div class="wallet-inner">
+        <div class="wallet-body">
+          <pre id="walletTerm"></pre>
+          <div id="walletButtons" class="wallet-buttons"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN LOGIC -->
+<script type="module">
+  import {
+    getSession,
+    loginDevice,
+    loginWallet,
+    detectWalletProviders,
+    consumeRedirect
+  } from "./assets/js/auth.js";
+
+  /* ------------------------------------------------------------
+     TYPEWRITER FUNCTION
+  ------------------------------------------------------------ */
+  const term = document.getElementById("terminalText");
+
+  function typewrite(text, speed = 28) {
+    term.textContent = "";
+    let i = 0;
+    (function step() {
+      if (i < text.length) {
+        term.textContent += text[i++];
+        setTimeout(step, speed);
+      }
+    })();
+  }
+
+  /* ------------------------------------------------------------
+     AUTO-REDIRECT IF ALREADY LOGGED IN
+  ------------------------------------------------------------ */
+  const existingSession = getSession();
+
+  if (existingSession) {
+    typewrite("> existing session detected.\n> redirecting...");
+
+    const target = consumeRedirect() || "index.html";
+
+    setTimeout(() => {
+      window.location.href = target;
+    }, 1200);
+  } else {
+    typewrite("> initializing login.exe...\n> select authentication method.");
+  }
+
+  /* ------------------------------------------------------------
+     DEVICE LOGIN
+  ------------------------------------------------------------ */
+  document.getElementById("btnDevice").onclick = () => {
+    loginDevice();
+
+    typewrite("> device authenticated.\n> launching session...");
+
+    const target = consumeRedirect() || "index.html";
+
+    setTimeout(() => {
+      window.location.href = target;
+    }, 1200);
+  };
+
+  /* ------------------------------------------------------------
+     WALLET LOGIN
+  ------------------------------------------------------------ */
+  document.getElementById("btnWallet").onclick = () => {
+    const providers = detectWalletProviders();
+
+    if (providers.length === 0) {
+      typewrite("> no compatible wallet detected.");
+      return;
+    }
+
+    showWalletSelector(providers);
+  };
+
+  function showWalletSelector(providers) {
+    const overlay = document.getElementById("walletOverlay");
+    const walletTerm = document.getElementById("walletTerm");
+    const walletButtons = document.getElementById("walletButtons");
+
+    overlay.classList.add("active");
+    walletTerm.textContent =
+      "> wallet interfaces detected.\n> choose provider:\n";
+
+    walletButtons.innerHTML = "";
+
+    providers.forEach(p => {
+      const btn = document.createElement("button");
+      btn.className = "wallet-btn";
+      btn.textContent = p.name;
+      btn.onclick = () => connectWallet(p);
+      walletButtons.appendChild(btn);
+    });
+  }
+
+  async function connectWallet(providerObj) {
+    document.getElementById("walletOverlay").classList.remove("active");
+
+    try {
+      typewrite("> connecting wallet...");
+      await loginWallet(providerObj);
+
+      typewrite("> wallet authenticated.\n> launching session...");
+
+      const target = consumeRedirect() || "index.html";
+
+      setTimeout(() => {
+        window.location.href = target;
+      }, 1200);
+
+    } catch (err) {
+      typewrite("> wallet authentication cancelled.");
+    }
+  }
+
+  /* ------------------------------------------------------------
+     EMAIL LOGIN PLACEHOLDER
+  ------------------------------------------------------------ */
+  document.getElementById("btnEmail").onclick = () => {
+    typewrite("> email login not yet enabled.\n> please use device or wallet.");
+  };
+</script>
+<!-- AUTH SYSTEM -->
+<script type="module" src="assets/js/auth.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>submit.exe — memetic.exe</title>
+
+  <link rel="stylesheet" href="assets/css/submit.css" />
+  <link rel="stylesheet" href="assets/css/header.css" />
+  <link rel="stylesheet" href="assets/css/footer.css" />
+</head>
+
+<body>
+
+  <!-- BLACKOUT SCREEN -->
+  <div id="blackout"></div>
+
+  <!-- ERROR POPUP -->
+  <div id="glitchErrorOverlay" class="glitch-overlay">
+    <div id="errorBox" class="glitch-error-box">
+      <h1 class="glitch-title">ERROR</h1>
+      <p class="glitch-msg">
+        Required fields missing.<br />
+        Payload rejected by kernel.
+      </p>
+      <button class="glitch-close" onclick="closeGlitchError()">RETRY</button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <div id="header"></div>
+  <script defer>
+    fetch("assets/includes/header.html")
+      .then(r => r.text())
+      .then(html => (document.getElementById("header").innerHTML = html));
+  </script>
+
+  <main class="page">
+
+    <!-- TOP TERMINAL (TYPED) -->
+    <div class="terminal" id="topTerminal">
+      <div id="topTerminalText"></div>
+      <span id="topTerminalCursor">█</span>
+    </div>
+
+    <h2>Section 1: About You</h2>
+
+    <form id="creatorForm" novalidate>
+
+      <div>
+        <label>Full Name / Alias</label>
+        <input type="text" name="entry.1356117953" required />
+      </div>
+
+      <div>
+        <label>Email Address or Preferred Contact Method</label>
+        <input type="text" name="entry.1478267687" required />
+      </div>
+
+      <div>
+        <label>Social Media / Portfolio Links</label>
+        <textarea name="entry.1098219172" required></textarea>
+      </div>
+
+      <div>
+        <label>Preferred Username for Attribution</label>
+        <input type="text" name="entry.344938387" required />
+      </div>
+
+      <h2>Section 2: Meme / Design Style</h2>
+
+      <div>
+        <label>Describe your meme style in 1–3 sentences</label>
+        <textarea name="entry.659023052" required></textarea>
+      </div>
+
+      <div>
+        <label>Do you create original artwork, remix existing memes, or both?</label>
+        <select name="entry.2054428884" required>
+          <option value="">select one</option>
+          <option>Original Artwork</option>
+          <option>Meme Remixes</option>
+          <option>Both</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Please provide external links to 1–3 examples of your work</label>
+        <textarea name="entry.736102099" required></textarea>
+      </div>
+
+      <h2>Section 3: Merch Fit</h2>
+
+      <div>
+        <label>What types of merch do you see your designs on?</label>
+        <div class="section-block">
+          <label><input type="checkbox" name="entry.942069442" value="T-Shirts" /> T-Shirts</label><br />
+          <label><input type="checkbox" name="entry.942069442" value="Hoodies" /> Hoodies</label><br />
+          <label><input type="checkbox" name="entry.942069442" value="Stickers" /> Stickers</label><br />
+          <label><input type="checkbox" name="entry.942069442" value="Hats" /> Hats</label>
+        </div>
+      </div>
+
+      <div>
+        <label>Have you ever sold your designs before?</label>
+        <select name="entry.563315316" required>
+          <option value="">select one</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="section-block">
+        <label>
+          <input type="checkbox" name="entry.309353135" value="Yes" required />
+          I understand the profit-sharing model.
+        </label>
+      </div>
+
+      <div class="section-block">
+        <label>
+          <input type="checkbox" name="entry.618015854" value="Yes" required />
+          I confirm I own the rights to my submissions.
+        </label>
+      </div>
+
+      <button class="run-button" type="submit">
+        <span class="glitch-text" data-text="upload meme payload">upload meme payload</span>
+      </button>
+
+
+      <div id="successMessage" style="display:none; margin-top:15px; color:#6dd47e;">
+        ✓ payload received — the kernel is reviewing your submission.
+      </div>
+
+    </form>
+
+    <!-- LOWER TERMINAL -->
+    <div class="terminal status-terminal">
+      <div id="statusText"></div>
+      <span id="statusCursor">█</span>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <div id="footer"></div>
+  <script defer>
+    fetch("assets/includes/footer.html")
+      .then(res => res.text())
+      .then(html => (document.getElementById("footer").innerHTML = html));
+  </script>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+    // ---------------------------------------
+    // TYPEWRITER ENGINE (used by both terminals)
+    // ---------------------------------------
+    async function typeLine(text, color = "green", speed = 40, target = "statusText") {
+      const box = document.getElementById(target);
+      const div = document.createElement("div");
+      if (color === "red") div.classList.add("status-red");
+      div.textContent = "";
+      box.appendChild(div);
+
+      for (let i = 0; i < text.length; i++) {
+        div.textContent += text[i];
+        await sleep(speed);
+      }
+    }
+
+    // ---------------------------------------
+    // TOP TERMINAL SEQUENCE
+    // ---------------------------------------
+    async function typeTopTerminal() {
+      const box = document.getElementById("topTerminalText");
+      box.innerHTML = "";
+
+      await typeLine("> memetic.exe submission interface v2.0", "green", 60, "topTerminalText");
+      await typeLine("> accepts: full creator applications", "green", 60, "topTerminalText");
+      await typeLine("> output: system communication", "green", 60, "topTerminalText");
+      await typeLine("> ......................................", "green", 60, "topTerminalText");
+      await typeLine("> requirement: executable culture", "green", 60, "topTerminalText");
+    }
+
+    // ---------------------------------------
+    // LOWER TERMINAL IDLE LOOP
+    // ---------------------------------------
+    let idleLoopActive = false;
+
+    async function idleLoop() {
+      if (idleLoopActive) return;
+      idleLoopActive = true;
+
+      while (idleLoopActive) {
+        const box = document.getElementById("statusText");
+        box.innerHTML = "";
+        await typeLine("> Initializing integrity module...", "green", 35);
+        await typeLine("> system integrity check: all input fields mandatory...", "green", 35);
+        await sleep(1200);
+      }
+    }
+
+    function stopIdleLoop() { idleLoopActive = false; }
+
+    // ---------------------------------------
+    // NUCLEAR MELTDOWN
+    // ---------------------------------------
+    function nuclearMeltdown() {
+      const blackout = document.getElementById("blackout");
+      const overlay = document.getElementById("glitchErrorOverlay");
+      const box = document.getElementById("errorBox");
+
+    // 1. Begin nuclear glitch
+      document.body.classList.add("page-nuke");
+
+    // 2. After 2 seconds, remove glitch + fade screen to black
+      setTimeout(() => {
+        document.body.classList.remove("page-nuke");
+        blackout.classList.add("visible");
+      }, 1500);
+
+    // 3. After fade completes, show error popup on top
+      setTimeout(() => {
+        overlay.style.display = "flex";
+        box.style.opacity = 1;
+      }, 1000);
+  }
+
+    //---------------------------------------
+    // RETRY HANDLING
+    // ---------------------------------------
+    function closeGlitchError() {
+      const blackout = document.getElementById("blackout");
+      const overlay = document.getElementById("glitchErrorOverlay");
+      const box = document.getElementById("errorBox");
+
+      // Remove popup
+      box.style.opacity = 0;
+      overlay.style.display = "none";
+
+      // Remove blackout
+      blackout.classList.remove("visible");
+
+      // Retype top terminal
+      typeTopTerminal();
+
+      // Restart bottom terminal
+      idleLoopActive = false;
+      idleLoop();
+    }
+
+    // ---------------------------------------
+    // FORM HANDLER
+    // ---------------------------------------
+    function missingFields(form) {
+      return [...form.querySelectorAll("[required]")].some(f =>
+        f.type === "checkbox" ? !f.checked : !f.value.trim()
+      );
+    }
+
+    document.getElementById("creatorForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const form = this;
+
+      stopIdleLoop();
+
+      const statusBox = document.getElementById("statusText");
+      statusBox.innerHTML = "";
+      await typeLine("> scanning input fields...", "green", 40);
+      await sleep(500);
+
+      if (missingFields(form)) {
+        statusBox.innerHTML = "";
+        await typeLine("> error: required fields missing...", "red", 45);
+        await typeLine("> system integrity check failed...", "red", 45);
+        nuclearMeltdown();
+        return;
+      }
+
+      statusBox.innerHTML = "";
+      await typeLine("> all required fields detected.", "green", 40);
+      await typeLine("> uploading payload...", "green", 40);
+      await typeLine("> payload uploaded successfully", "green", 40);
+      await typeLine("> Thank you for your submission!", "green", 40);
+
+      const endpoint =
+        "https://docs.google.com/forms/d/e/1FAIpQLSdyORu5_yjU1Zmj8JbtEd6pytJ69er3U5IDMobql-qLeH6TpA/formResponse";
+
+      const formData = new FormData(form);
+
+      fetch(endpoint, { method: "POST", mode: "no-cors", body: formData })
+        .then(async () => {
+          form.reset();
+          statusBox.innerHTML = "";
+          const statusBox = document.getElementById("statusText");
+          statusBox.innerHTML = "";
+
+          await typeLine("> validating payload hash...", "green", 35);
+          await typeLine("> writing data to kernel memory...", "green", 35);
+          await typeLine("> updating creator registry...", "green", 35);
+          await typeLine("> upload complete. kernel accepting submission.", "green", 35);
+          await typeLine("> status: SUCCESS", "green", 35);
+
+          document.getElementById("successMessage").style.display = "block";
+        });
+    });
+
+    // ---------------------------------------
+    // INIT
+    // ---------------------------------------
+    window.addEventListener("DOMContentLoaded", () => {
+      typeTopTerminal();
+      idleLoop();
+    });
+  </script>
+  <!-- AUTH SYSTEM -->
+<script type="module" src="assets/js/auth.js" defer></script>
+
+</body>
+</html>

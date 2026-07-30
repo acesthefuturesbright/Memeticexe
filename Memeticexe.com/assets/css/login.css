@@ -1,0 +1,184 @@
+:root {
+      --glitch-teal:#00c7a9;
+      --muted-magenta:#c9317e;
+      --memory-green:#6dd47e;
+      --terminal-gray:#1f1f1f;
+      --white:#ffffff;
+    }
+
+    body {
+      margin:0;
+      background: radial-gradient(circle at top, #1f1f1f 0, #000 55%);
+      color:#e4e4e7;
+      font-family:"Courier New", monospace;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .page {
+      max-width:880px;
+      margin:40px auto;
+      padding:30px 20px;
+      background:linear-gradient(to bottom, rgba(16,16,24,0.94), rgba(0,0,0,0.95));
+      border-radius:16px;
+      border:1px solid #252538;
+      box-shadow:0 0 35px rgba(0,0,0,0.85);
+    }
+
+    h2.page-title {
+      color:var(--memory-green);
+      font-size:1.4rem;
+      margin:0 0 12px 0;
+      text-align:center;
+      text-shadow:0 0 8px rgba(0,255,160,0.5);
+    }
+
+    .terminal {
+      background:#000;
+      border:1px solid #333;
+      border-radius:10px;
+      padding:16px;
+      margin-top:20px;
+      min-height:3rem;
+      color:#00ff9d;
+      font-size:0.9rem;
+      white-space:pre-wrap;
+    }
+
+    #cursor {
+      animation: blinkCursor 0.85s step-end infinite;
+      margin-left:4px;
+    }
+    @keyframes blinkCursor {
+      0%,100% { opacity:1; }
+      50% { opacity:0; }
+    }
+
+    /* login option buttons */
+    .login-options {
+      margin-top:20px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .run-button {
+      position:relative;
+      padding:14px 28px;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+      font-family:inherit;
+      font-size:0.92rem;
+      letter-spacing:1px;
+      color:white;
+      text-transform:uppercase;
+      background:linear-gradient(135deg, #ff00ff60, #00eaff60);
+      box-shadow:0 0 14px rgba(255,0,255,0.35);
+      overflow:hidden;
+      transition:0.15s ease;
+      width:100%;
+      text-align:center;
+    }
+    .run-button:hover {
+      transform:translateY(-2px) scale(1.04);
+      background:linear-gradient(135deg, #ff00ffaa, #00eaffaa);
+      box-shadow:0 0 20px rgba(0,255,200,0.4);
+    }
+
+    .glitch-text { position:relative; display:inline-block; }
+    .glitch-text::before,
+    .glitch-text::after {
+      content:attr(data-text);
+      position:absolute;
+      left:0; top:0;
+      mix-blend-mode:screen;
+      pointer-events:none;
+    }
+    .glitch-text::before {
+      color:#ff00ffbb;
+      opacity:.55;
+      transform:translate(-2px,-1px);
+      clip-path:inset(0 0 55% 0);
+    }
+    .glitch-text::after {
+      color:#00eaffbb;
+      opacity:.55;
+      transform:translate(2px,1px);
+      clip-path:inset(45% 0 0 0);
+    }
+
+    .run-button:hover .glitch-text::before {
+      animation:glitchPink .25s steps(3) infinite;
+    }
+    .run-button:hover .glitch-text::after {
+      animation:glitchCyan .25s steps(3) infinite;
+    }
+
+    @keyframes glitchPink {
+      0% { transform:translate(-2px,-1px); }
+      33%{ transform:translate(-4px,1px); }
+      66%{ transform:translate(-1px,-3px); }
+      100%{ transform:translate(-2px,-1px); }
+    }
+    @keyframes glitchCyan {
+      0% { transform:translate(2px,1px); }
+      33%{ transform:translate(3px,-2px); }
+      66%{ transform:translate(1px,2px); }
+      100%{ transform:translate(2px,1px); }
+    }
+
+    /* WALLET SELECTOR POPUP — REUSED FROM VOTE */
+    .wallet-overlay {
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.85);
+      backdrop-filter:blur(2px);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:9999;
+    }
+    .wallet-overlay.active { display:flex; }
+
+    .wallet-popup {
+      width:520px;
+      max-width:95%;
+      border-radius:6px;
+      padding:0;
+      background:transparent;
+      box-shadow:0 0 12px #ff00ff, 0 0 8px #00f0ff;
+      filter:drop-shadow(0 0 12px #ff00ff) drop-shadow(0 0 8px #00f0ff);
+      animation:terminalIn .45s ease-out forwards;
+    }
+
+    @keyframes terminalIn {
+      0% { opacity:0; transform:scale(.93) translateY(20px); }
+      25%{ opacity:1; transform:scale(1.05) translateY(-5px); }
+      50%{ transform:scale(.98) translateY(3px); }
+      75%{ transform:scale(1.02) translateY(-2px); }
+      100%{ transform:scale(1) translateY(0); }
+    }
+
+    .wallet-bezel { border:8px solid #8c8c8c; background:#1a1a1a; border-radius:6px; }
+    .wallet-inner { border:4px solid #000; background:#000; border-radius:4px; }
+    .wallet-body { padding:20px 22px; color:#00ff9d; font-family:"JetBrains Mono", monospace; }
+
+    .wallet-buttons { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+    .wallet-btn {
+      padding:6px 12px;
+      border-radius:4px;
+      border:1px solid #00ff9d;
+      background:#000;
+      color:#00ff9d;
+      cursor:pointer;
+      font-size:.85rem;
+      text-transform:lowercase;
+      transition:.15s ease;
+    }
+    .wallet-btn:hover {
+      background:rgba(0,255,150,0.13);
+      transform:translateY(-2px);
+      box-shadow:0 0 10px rgba(0,255,150,0.35);
+    }

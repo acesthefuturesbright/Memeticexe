@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>memetic.exe — store</title>
+  <link rel="stylesheet" href="assets/css/store.css">
+  <link rel="stylesheet" href="assets/css/header.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+</head>
+
+<body>
+
+<!-- SHARED HEADER -->
+<div id="header"></div>
+
+<!-- Load the reusable header -->
+<script>
+  fetch("assets/includes/header.html")
+    .then(res => res.text())
+    .then(html => { document.getElementById("header").innerHTML = html; });
+</script>
+
+
+<div class="content">
+
+  <!-- CREATOR SPOTLIGHT -->
+  <div class="creator-section" onclick="window.location.href='https://x.com/mrsmedoteth'">
+    <img src="assets/images/mrsme-pfp.jpg" alt="mrsme pfp" />
+    <div class="creator-info">
+      <p class="creator-name">mrsme</p>
+      <p class="creator-tag">creator.exe</p>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <!-- CARD 1 -->
+    <div class="card" onclick="openPreview('assets/images/everything-tee-natural.jpg')">
+      <img src="assets/images/everything-tee-natural.jpg" />
+      <div class="title">Everything You Do Matters</div>
+
+      <button class="run-button"
+              onclick="event.stopPropagation(); window.location.href='https://merchlabs.com/products/everything-you-do-matters-tee'">
+        <span class="glitch-text" data-text="purchase.exe">purchase.exe</span>
+      </button>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="card" onclick="openPreview('assets/images/memeticexe---Pork-Tee.jpg')">
+      <img src="assets/images/memeticexe---Pork-Tee.jpg" />
+      <div class="title">Pork</div>
+
+      <button class="run-button"
+              onclick="event.stopPropagation(); window.location.href='https://merchlabs.com/products/pork-tee'">
+        <span class="glitch-text" data-text="purchase.exe">purchase.exe</span>
+      </button>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="card" onclick="openPreview('assets/images/oxpond-tee-white.jpg')">
+      <img src="assets/images/oxpond-tee-white.jpg" />
+      <div class="title">OX Pond</div>
+
+      <button class="run-button"
+              onclick="event.stopPropagation(); window.location.href='https://merchlabs.com/products/ox-pond-tee'">
+        <span class="glitch-text" data-text="purchase.exe">purchase.exe</span>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="previewModal">
+  <div class="modal-close" onclick="closePreview()">×</div>
+  <img id="modalImage" src="" alt="Preview">
+</div>
+
+<div id="footer"></div>
+
+<script defer>
+  fetch("assets/includes/footer.html")
+    .then(res => res.text())
+    .then(html => { document.getElementById("footer").innerHTML = html; });
+</script>
+
+<script>
+  function openPreview(src) {
+    document.getElementById('modalImage').src = src;
+    document.getElementById('previewModal').classList.add('active');
+  }
+
+  function closePreview() {
+    document.getElementById('previewModal').classList.remove('active');
+  }
+</script>
+<!-- AUTH SYSTEM -->
+<script type="module" src="assets/js/auth.js" defer></script>
+
+</body>
+</html>

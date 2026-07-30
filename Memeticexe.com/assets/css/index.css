@@ -1,0 +1,294 @@
+:root {
+      /* Core palette */
+      --graphite: #0d0d0d;
+      --terminal-gray: #1f1f1f;
+      --dusty-byte: #2a2e35;
+      --soft-static: #8a8a8a;
+      --glitch-teal: #00c7a9;
+      --muted-magenta: #c9317e;
+      --code-blue: #3f88c5;
+      --memory-green: #6dd47e;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #1f1f1f 0, #000 55%);
+      color: #e4e4e7;
+      font-family: "Courier New", monospace;
+      line-height: 1.7;
+    }
+
+    b {
+      color: var(--glitch-teal);
+      text-decoration: none;
+    }
+
+    b:hover {
+      color: var(--muted-magenta);
+    }
+
+/* Full-width hero title (sits above the grid, aligned perfectly) */
+.hero-title {
+  grid-column: 1 / -1;            /* spans entire hero width */
+  width: 100%;                    /* respects hero padding */
+  margin: 0 0 0 0;             /* spacing under title */
+  padding-right: 20px;
+  margin-bottom: 4px;
+  font-size: 1.5rem;
+  color: var(--memory-green);
+  text-shadow: 0 0 8px rgba(0,255,160,0.5);
+  box-sizing: border-box;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.6fr);
+  gap: 24px;
+  align-items: center;
+  max-width: 960px;
+  margin: 40px auto 20px;
+  padding: 0 20px;
+}
+
+
+@media (max-width: 800px) {
+.hero {
+  grid-template-columns: 1fr;
+  text-align: center;
+      }
+}
+
+.hero-text h2 {
+  font-size: 0.9 rem;
+  line-height: 1.05;
+  margin-top: 0;
+  margin-bottom: 4px;
+  color: var(--memory-green);
+  text-shadow: 0 0 3px rgba(0,255,160,0.3);
+}
+
+
+.hero-tagline {
+  font-size: 1rem;
+  color: #d4d4dc;
+  min-height: 1.2em;
+}
+
+.tagline-rotating {
+  color: var(--muted-magenta);
+}
+
+.hero-copy {
+  margin-top: 12px;
+  font-size: 0.95rem;
+}
+
+    .run-button-wrapper {
+      margin-top: 22px;
+    }
+
+    .run-button {
+      position: relative;
+      display: inline-block;
+      padding: 14px 34px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top left, #ff00ff, #00f0ff);
+      color: #fff;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(255,0,255,0.4);
+    }
+
+    .run-button span {
+      position: relative;
+      z-index: 2;
+    }
+
+    .run-button::before,
+    .run-button::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: inherit;
+      background: #101018;
+      z-index: 1;
+    }
+
+    .run-button::after {
+      inset: 2px;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    .run-button span.label {
+      position: relative;
+      z-index: 3;
+    }
+
+    .run-button:hover {
+      animation: glitch-btn 400ms infinite;
+    }
+
+    .run-button:hover::before {
+      background: #181825;
+    }
+
+    .run-button .label::before,
+    .run-button .label::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      overflow: hidden;
+      clip-path: inset(0 0 50% 0);
+    }
+
+    .run-button .label::before {
+      left: -2px;
+      text-shadow: -2px 0 #00f0ff;
+      mix-blend-mode: screen;
+    }
+
+    .run-button .label::after {
+      left: 2px;
+      text-shadow: 2px 0 #ff00ff;
+      clip-path: inset(50% 0 0 0);
+      mix-blend-mode: screen;
+    }
+
+    @keyframes glitch-btn {
+      0% { transform: translate(0,0); }
+      20% { transform: translate(-1px,1px); }
+      40% { transform: translate(1px,-1px); }
+      60% { transform: translate(-1px,-1px); }
+      80% { transform: translate(1px,1px); }
+      100% { transform: translate(0,0); }
+    }
+
+    .hero-banner {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.05);
+      background: #000;
+      position: relative;
+      box-shadow: 0 0 25px rgba(0,0,0,0.8);
+    }
+
+    .hero-banner img {
+      width: 100%;
+      display: block;
+    }
+
+    .hero-banner::after {
+      content: "system: online";
+      position: absolute;
+      bottom: 10px;
+      right: 14px;
+      font-size: 0.75rem;
+      color: #00ffb7;
+      text-shadow: 0 0 6px #00ffb7;
+      background: rgba(0,0,0,0.6);
+      padding: 4px 8px;
+      border-radius: 999px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto 60px;
+      padding: 0 20px 20px;
+      background: linear-gradient(to bottom, rgba(16,16,24,0.9), rgba(0,0,0,0.9));
+      border-radius: 16px;
+      border: 1px solid #252538;
+      box-shadow: 0 0 40px rgba(0,0,0,0.7);
+    }
+
+    .section-title {
+      margin-top: 32px;
+      margin-bottom: 12px;
+      font-size: 1.3rem;
+      color: var(--code-blue);
+      text-shadow: 0 0 6px rgba(63,136,197,0.7);
+    }
+
+    .block {
+      margin-bottom: 25px;
+      padding: 10px 0 0 10px;
+      border-left: 2px solid var(--muted-magenta);
+      color: #e4e4e7;
+      font-size: 0.95rem;
+    }
+
+    /* MANIFESTO TERMINAL POPUP */
+.terminal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.terminal-window {
+  width: 720px;
+  max-width: 95%;
+  background: #000;
+  border: 1px solid #333;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0,255,160,0.25);
+  font-family: "Courier New", monospace;
+}
+
+.terminal-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid #222;
+  color: var(--memory-green);
+}
+
+.terminal-header button {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.terminal-body {
+  padding: 16px;
+  min-height: 260px;
+  color: #00ff9d;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+}
+
+.terminal-nav {
+  display: flex;
+  gap: 10px;
+  padding: 10px 14px 14px;
+}
+
+.terminal-nav button {
+  background: #000;
+  border: 1px solid #00ff9d;
+  color: #00ff9d;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.terminal-nav button:hover {
+  background: rgba(0,255,150,0.15);
+}
