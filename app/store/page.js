@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Header from "@/components/Header";
 import styles from "./store.module.css";
 
@@ -103,21 +104,23 @@ export default function Store() {
         <div className={styles.grid}>
           {filteredProducts.map((product) => (
             <div key={product.id} className={styles.card}>
-              <div className={styles.imageArea}>
-                <div className={styles.imageWrapper}>
-                  <Image
-                    src={product.imageUrl}
-                    alt={product.name}
-                    className={styles.productImg}
-                    width={220}
-                    height={220}
-                    priority={product.id === "everything-tee"}
-                  />
+              <Link href={`/store/${product.id}`} className={styles.cardImageLink}>
+                <div className={styles.imageArea}>
+                  <div className={styles.imageWrapper}>
+                    <Image
+                      src={product.imageUrl}
+                      alt={product.name}
+                      className={styles.productImg}
+                      width={220}
+                      height={220}
+                      priority={product.id === "everything-tee"}
+                    />
+                  </div>
+                  <div className={styles.statusBadge} data-status={product.status}>
+                    {product.status}
+                  </div>
                 </div>
-                <div className={styles.statusBadge} data-status={product.status}>
-                  {product.status}
-                </div>
-              </div>
+              </Link>
 
               <div className={styles.infoArea}>
                 <div className={styles.cardHeader}>
@@ -125,24 +128,24 @@ export default function Store() {
                   <span className={styles.price}>{product.price}</span>
                 </div>
                 
-                <h3 className={styles.productName}>{product.name}</h3>
+                <Link href={`/store/${product.id}`} className={styles.nameLink}>
+                  <h3 className={styles.productName}>{product.name}</h3>
+                </Link>
                 <p className={styles.productDesc}>{product.description}</p>
 
                 <div className={styles.telemetry}>
                   <div className={styles.telItem}>
-                    <span className={styles.telLabel}>SALES INDICATOR:</span>
+                    <span className={styles.telLabel}>TOTAL SOLD:</span>
                     <span className={styles.telVal}>{product.transmissions}</span>
                   </div>
                 </div>
 
-                <a
-                  href={product.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href={`/store/${product.id}`}
                   className={styles.buyBtn}
                 >
-                  BUY MERCH &gt;
-                </a>
+                  INSPECT GEAR &gt;
+                </Link>
               </div>
             </div>
           ))}

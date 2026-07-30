@@ -11,6 +11,7 @@ export default function Header() {
     { name: "HOME", path: "/" },
     { name: "STORE", path: "/store" },
     { name: "CREATORS", path: "/creators" },
+    { name: "ABOUT", path: "/about" },
     { name: "PORTAL", path: "/portal" },
   ];
 

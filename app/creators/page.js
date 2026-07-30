@@ -124,15 +124,9 @@ export default function Creators() {
                 )}
               </div>
 
-              {c.designs.length > 0 ? (
-                <Link href={`/store?node=${c.name}`} className={styles.inspectBtn}>
-                  VIEW MERCH &gt;
-                </Link>
-              ) : (
-                <button className={styles.disabledBtn} disabled>
-                  OFFLINE
-                </button>
-              )}
+              <Link href={`/creators/${c.id}`} className={styles.inspectBtn}>
+                VIEW PROFILE &gt;
+              </Link>
             </div>
           ))}
         </div>

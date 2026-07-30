@@ -1,0 +1,123 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+}
+
+.main {
+  flex: 1;
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.glitchHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.subtitle {
+  color: var(--secondary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--primary);
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+}
+
+.description {
+  font-size: 1rem;
+  color: var(--foreground);
+  line-height: 1.6;
+  max-width: 750px;
+}
+
+/* MANIFESTO GRID */
+.manifestoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.manifestoCard {
+  background-color: var(--terminal-bg);
+  border: 1px solid var(--border);
+  padding: 1.8rem;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.manifestoCard:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 255, 204, 0.05);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 0.8rem;
+}
+
+.sectionId {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--secondary);
+  font-size: 0.9rem;
+  border: 1px solid var(--secondary);
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+}
+
+.sectionTitle {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.03em;
+}
+
+.sectionText {
+  font-size: 0.85rem;
+  color: var(--foreground);
+  line-height: 1.6;
+}
+
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--subtle-text);
+  background-color: var(--terminal-bg);
+}
+
+@media (max-width: 768px) {
+  .manifestoGrid {
+    grid-template-columns: 1fr;
+  }
+}

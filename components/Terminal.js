@@ -106,9 +106,9 @@ export default function Terminal() {
   const triggerSelfDestruct = () => {
     setHistory((prev) => [
       ...prev,
-      { type: "error", text: "[CRITICAL ERROR] PATH MUTATION DETECTED." },
-      { type: "error", text: "UNAUTHORIZED ATTEMPT TO ALTER FILE SYSTEM ENVIRONMENT." },
-      { type: "glitch", text: "INITIATING SYSTEM CORE SELF-DESTRUCT PROTOCOL..." }
+      { type: "error", text: "[ERROR] DIRECTORY CHANGE RESTRICTED." },
+      { type: "error", text: "Unauthorised attempt to alter terminal file path." },
+      { type: "glitch", text: "System lock triggered. Initiating reboot..." }
     ]);
 
     setDestructCountdown(5);
@@ -152,7 +152,7 @@ export default function Terminal() {
     if (cmd === "deal with it" || cmd === "dealwithit") {
       setHistory([
         ...currentHistory,
-        { type: "success", text: "[SYSTEM] Initiating deal-with-it matrix overlay..." }
+        { type: "success", text: "[SYSTEM] Dropping deal-with-it sunglasses..." }
       ]);
       setDealWithItActive(true);
       setTimeout(() => {
@@ -166,18 +166,18 @@ export default function Terminal() {
         setHistory([
           ...currentHistory,
           { type: "system", text: "Available commands:" },
-          { type: "info", text: "  home       - Go back to homepage" },
-          { type: "info", text: "  shop       - Open the merchandise store" },
-          { type: "info", text: "  creators   - Inspect creator profiles" },
-          { type: "info", text: "  portal     - Access creator telemetry portal" },
-          { type: "info", text: "  clear      - Clear console buffer screen" },
-          { type: "info", text: "  secret     - Run a diagnostics matrix scan" }
+          { type: "info", text: "  home       - Navigate to the Home page" },
+          { type: "info", text: "  shop       - Open the Shop Catalog" },
+          { type: "info", text: "  creators   - Open the Creators Directory" },
+          { type: "info", text: "  portal     - Open the Creator Login Portal" },
+          { type: "info", text: "  clear      - Clear the terminal screen" },
+          { type: "info", text: "  secret     - Run terminal system scan" }
         ]);
         break;
       case "home":
         setHistory([
           ...currentHistory,
-          { type: "info", text: "Navigating to homepage..." }
+          { type: "info", text: "Navigating to home page..." }
         ]);
         setTimeout(() => {
           router.push("/");
@@ -187,7 +187,7 @@ export default function Terminal() {
       case "store":
         setHistory([
           ...currentHistory,
-          { type: "info", text: "Redirecting client session to merch store..." }
+          { type: "info", text: "Navigating to the Shop catalog..." }
         ]);
         setTimeout(() => {
           router.push("/store");
@@ -197,7 +197,7 @@ export default function Terminal() {
       case "artists":
         setHistory([
           ...currentHistory,
-          { type: "info", text: "Accessing community creators directory database..." }
+          { type: "info", text: "Navigating to the Creators Directory..." }
         ]);
         setTimeout(() => {
           router.push("/creators");
@@ -207,7 +207,7 @@ export default function Terminal() {
       case "portal":
         setHistory([
           ...currentHistory,
-          { type: "error", text: "Security credentials missing. Log in to portal to submit files." }
+          { type: "error", text: "Access restricted. Please log in at the portal page." }
         ]);
         setTimeout(() => {
           router.push("/portal");
@@ -216,7 +216,7 @@ export default function Terminal() {
       case "pond0x":
         setHistory([
           ...currentHistory,
-          { type: "glitch", text: "FORWARDING TRANSMISSION TO POND0X..." }
+          { type: "glitch", text: "Opening www.pond0x.com in a new tab..." }
         ]);
         setTimeout(() => {
           window.open("https://www.pond0x.com", "_blank");
@@ -225,7 +225,7 @@ export default function Terminal() {
       case "mrsme":
         setHistory([
           ...currentHistory,
-          { type: "info", text: "Opening @mrsme0x X profile..." }
+          { type: "info", text: "Opening @mrsme0x profile on X..." }
         ]);
         setTimeout(() => {
           window.open("https://x.com/mrsme0x", "_blank");
@@ -235,7 +235,7 @@ export default function Terminal() {
       case "frogs":
         setHistory([
           ...currentHistory,
-          { type: "success", text: "[SYSTEM] Releasing frogs into viewport execution grid..." }
+          { type: "success", text: "[SYSTEM] Jumping frogs across the screen!" }
         ]);
         triggerFrogs();
         break;
@@ -245,10 +245,10 @@ export default function Terminal() {
       case "secret":
         setHistory([
           ...currentHistory,
-          { type: "glitch", text: "RUNNING SYSTEM HARDWARE DIAGNOSTICS..." },
+          { type: "glitch", text: "Running system diagnostics scan..." },
           { type: "success", text: "[========================================] 100%" },
-          { type: "system", text: "Telemetry checks verified. Memory: STABLE." },
-          { type: "error", text: "Alert: Terminal console simulation active!" }
+          { type: "system", text: "Diagnostic checks completed. Memory: STABLE." },
+          { type: "error", text: "Notice: Terminal simulation active and operational." }
         ]);
         break;
       default:

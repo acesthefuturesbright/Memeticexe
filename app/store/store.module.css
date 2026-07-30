@@ -135,12 +135,13 @@
 .productImg {
   object-fit: contain;
   transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-  filter: grayscale(20%) brightness(0.9);
+  position: relative;
+  z-index: 10005;
 }
 
 .card:hover .productImg {
   transform: scale(1.06);
-  filter: grayscale(0%) brightness(1.05) drop-shadow(0 0 10px rgba(0, 255, 204, 0.15));
+  filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.15));
 }
 
 .statusBadge {
@@ -264,6 +265,15 @@
   border-radius: 4px;
   cursor: not-allowed;
   margin-top: 0.5rem;
+}
+
+.cardImageLink {
+  text-decoration: none;
+  display: block;
+}
+
+.nameLink {
+  text-decoration: none;
 }
 
 .footer {

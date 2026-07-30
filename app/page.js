@@ -39,7 +39,7 @@ export default function Home() {
         {/* HERO SECTION */}
         <section className={styles.heroSection}>
           <div className={styles.glitchHeader}>
-            <span className={styles.subtitle}>// memes detected... executing anyway.</span>
+            <span className={styles.subtitle}>// creator-powered t-shirt store</span>
             <h1 className={`${styles.title} glitch-text`}>MEMETIC.EXE</h1>
           </div>
 
@@ -48,7 +48,7 @@ export default function Home() {
               {TAGLINES[taglineIdx]}
             </p>
             <p className={styles.heroCopy}>
-              memetic.exe compiles internet culture into wearable executables. No creepy tracking, no data hoarding—just memes, artists, and gear that propagates the signal.
+              memetic.exe is a creator-powered t-shirt platform. We help independent artists design and sell high-quality custom t-shirts with fair royalty shares. No tracking, no data hoarding—just great shirts and creator-first culture.
             </p>
             
             <div className={styles.runWrapper}>
@@ -56,7 +56,29 @@ export default function Home() {
                 className={styles.runButton}
                 onClick={() => router.push("/store")}
               >
-                run store.exe
+                run store.exe (browse store) &gt;
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* CREATOR SPOTLIGHT SECTION */}
+        <section className={styles.spotlightSection}>
+          <div className={styles.spotlightCard}>
+            <div className={styles.spotlightHeader}>
+              <span className={styles.spotlightBadge}>CREATOR SPOTLIGHT</span>
+              <span className={styles.spotlightNode}>CREATOR ID: 0x8C</span>
+            </div>
+            <div className={styles.spotlightBody}>
+              <h2 className={styles.spotlightTitle}>@MrsMe — Lead Designer</h2>
+              <p className={styles.spotlightText}>
+                Creator of the iconic <strong>Pork Tee</strong>, <strong>Everything You Do Matters Tee</strong>, and <strong>OX Pond Tee</strong>. MrsMe designs clean, premium graphic t-shirts that stand out in any crowd.
+              </p>
+              <button 
+                className={styles.spotlightBtn}
+                onClick={() => router.push("/creators/mrsme")}
+              >
+                view creator profile &gt;
               </button>
             </div>
           </div>
