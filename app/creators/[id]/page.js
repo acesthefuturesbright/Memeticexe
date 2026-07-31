@@ -8,6 +8,7 @@ import { eq } from "drizzle-orm";
 import styles from "./profile.module.css";
 
 export const dynamic = "force-dynamic";
+export const runtime = "edge";
 
 const STATIC_CREATORS = [
   {

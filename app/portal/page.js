@@ -5,6 +5,7 @@ import CreatorDashboard from "./CreatorDashboard.js";
 import styles from "./portal.module.css";
 
 export const dynamic = "force-dynamic";
+export const runtime = "edge";
 
 export default async function CreatorPortalPage() {
   const session = await auth();

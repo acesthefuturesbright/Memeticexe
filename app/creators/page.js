@@ -5,6 +5,7 @@ import { creators } from "@/db/schema.js";
 import styles from "./creators.module.css";
 
 export const dynamic = "force-dynamic";
+export const runtime = "edge";
 
 const FALLBACK_CREATORS = [
   {

@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/db/index.js";
+
+export const runtime = "edge";
 import { creatorApplications } from "@/db/schema.js";
 
 export async function POST(request) {

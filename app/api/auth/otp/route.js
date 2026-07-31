@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/db/index.js";
+
+export const runtime = "edge";
 import { creators, otpCodes } from "@/db/schema.js";
 import { eq } from "drizzle-orm";
 
