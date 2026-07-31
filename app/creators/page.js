@@ -1,10 +1,12 @@
-"use client";
-
 import Header from "@/components/Header";
 import Link from "next/link";
+import { db } from "@/db/index.js";
+import { creators } from "@/db/schema.js";
 import styles from "./creators.module.css";
 
-const CREATORS = [
+export const dynamic = "force-dynamic";
+
+const FALLBACK_CREATORS = [
   {
     id: "mrsme",
     name: "MrsMe",
@@ -12,9 +14,8 @@ const CREATORS = [
     status: "Lead Designer",
     cardStatus: "PRIMARY",
     bio: "Concept work across Pork pointing, Pond logo, and More Swaps More Drops. Leads layout and composition print processes.",
-    designs: ["Everything You Do Matters Tee", "Pork Tee", "OX Pond Tee"],
     twitter: "@mrsmedoteth",
-    isOnline: true
+    isOnline: 1
   },
   {
     id: "redacted",
@@ -23,9 +24,8 @@ const CREATORS = [
     status: "Design Node",
     cardStatus: "ACTIVE",
     bio: "A collaborative community project focused on funny, redacted text designs.",
-    designs: ["Redacted Trump Tee", "Redacted Tee"],
     twitter: "@memeticexe",
-    isOnline: true
+    isOnline: 1
   },
   {
     id: "kingsam",
@@ -34,9 +34,8 @@ const CREATORS = [
     status: "Creator",
     cardStatus: "ACTIVE",
     bio: "Graphic artist and community coordinator. Cap and sticker designer.",
-    designs: ["KingSam Cap (Coming Soon)"],
     twitter: "@kingsam",
-    isOnline: false
+    isOnline: 0
   },
   {
     id: "lilpork",
@@ -45,9 +44,8 @@ const CREATORS = [
     status: "Creator",
     cardStatus: "ACTIVE",
     bio: "Digital artist making cool character illustrations and funny meme designs.",
-    designs: ["LILPORK Hoodie (Coming Soon)"],
     twitter: "@lilpork",
-    isOnline: true
+    isOnline: 1
   },
   {
     id: "dolo",
@@ -56,13 +54,38 @@ const CREATORS = [
     status: "Creator",
     cardStatus: "STANDBY",
     bio: "Meme creator and community helper. Building cool merch concepts.",
-    designs: [],
     twitter: "@dolodoteth",
-    isOnline: false
+    isOnline: 0
   }
 ];
 
-export default function Creators() {
+const STATIC_PRODUCTS = [
+  { name: "Everything You Do Matters Tee", creatorId: "mrsme" },
+  { name: "Pork Tee", creatorId: "mrsme" },
+  { name: "OX Pond Tee", creatorId: "mrsme" },
+  { name: "Redacted Trump Tee", creatorId: "redacted" },
+  { name: "Redacted Tee", creatorId: "redacted" }
+];
+
+function getCreatorDesigns(creatorId) {
+  return STATIC_PRODUCTS.filter((p) => p.creatorId === creatorId).map((p) => p.name);
+}
+
+export default async function Creators() {
+  let activeCreators = [];
+
+  try {
+    const dbCreators = await db.select().from(creators);
+    // Filter out admin users from the creators list
+    activeCreators = dbCreators.filter(c => c.role !== "admin");
+  } catch (error) {
+    console.error("DB Creators query failed, falling back to static creators:", error);
+  }
+
+  if (activeCreators.length === 0) {
+    activeCreators = FALLBACK_CREATORS;
+  }
+
   return (
     <div className={styles.container}>
       <Header />
@@ -71,7 +94,7 @@ export default function Creators() {
         {/* Header Section */}
         <section className={styles.creatorsHeader}>
           <div className={styles.glitchHeader}>
-            <span className={styles.subtitle}>// KERNEL: CURRENT ARTISTS</span>
+            <span className={styles.subtitle}>{"// KERNEL: CURRENT ARTISTS"}</span>
             <h1 className={`${styles.title} glitch-text`}>CREATORS</h1>
           </div>
           <p className={styles.description}>
@@ -81,60 +104,68 @@ export default function Creators() {
 
         {/* Creators Grid */}
         <div className={styles.grid}>
-          {CREATORS.map((c) => (
-            <div key={c.id} className={styles.card} data-status={c.cardStatus}>
-              <div className={styles.cardHeader}>
-                <div className={styles.nodeId}>
-                  <span className={styles.label}>ID:</span> {c.nodeId}
+          {activeCreators.map((c) => {
+            const creatorDesigns = getCreatorDesigns(c.id);
+            return (
+              <div key={c.id} className={styles.card} data-status={c.cardStatus}>
+                <div className={styles.cardHeader}>
+                  <div className={styles.nodeId}>
+                    <span className={styles.label}>ID:</span> {c.nodeId}
+                  </div>
+                  <div className={styles.statusIndicator}>
+                    <span className={`${styles.dot} ${c.isOnline ? styles.online : styles.offline}`}></span>
+                    <span className={styles.statusText}>{c.status}</span>
+                  </div>
                 </div>
-                <div className={styles.statusIndicator}>
-                  <span className={`${styles.dot} ${c.isOnline ? styles.online : styles.offline}`}></span>
-                  <span className={styles.statusText}>{c.status}</span>
+
+                <div className={styles.avatarRow}>
+                  <div className={styles.terminalAvatar}>
+                    {`[${c.name.substring(0, 2).toUpperCase()}]`}
+                  </div>
+                  <div className={styles.avatarInfo}>
+                    <h3 className={styles.name}>@{c.name}</h3>
+                    <a
+                      href={`https://x.com/${c.twitter ? c.twitter.replace("@", "") : ""}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.twitter}
+                    >
+                      {c.twitter || "[NO TWITTER]"}
+                    </a>
+                  </div>
                 </div>
-              </div>
 
-              <div className={styles.avatarRow}>
-                <div className={styles.terminalAvatar}>
-                  {`[${c.name.substring(0, 2).toUpperCase()}]`}
+                <div className={styles.bio}>
+                  <p>{c.bio || "[NO BIOGRAPHY]"}</p>
                 </div>
-                <div className={styles.avatarInfo}>
-                  <h3 className={styles.name}>@{c.name}</h3>
-                  <a href={`https://x.com/${c.twitter.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className={styles.twitter}>
-                    {c.twitter}
-                  </a>
+
+                <div className={styles.payloads}>
+                  <h4 className={styles.payloadTitle}>DESIGNS:</h4>
+                  {creatorDesigns.length > 0 ? (
+                    <ul className={styles.payloadList}>
+                      {creatorDesigns.map((d, idx) => (
+                        <li key={idx} className={styles.payloadItem}>
+                          &gt; {d}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <span className={styles.noPayload}>NO ACTIVE DESIGNS [COMING SOON]</span>
+                  )}
                 </div>
-              </div>
 
-              <div className={styles.bio}>
-                <p>{c.bio}</p>
+                <Link href={`/creators/${c.id}`} className={styles.inspectBtn}>
+                  VIEW PROFILE &gt;
+                </Link>
               </div>
-
-              <div className={styles.payloads}>
-                <h4 className={styles.payloadTitle}>DESIGNS:</h4>
-                {c.designs.length > 0 ? (
-                  <ul className={styles.payloadList}>
-                    {c.designs.map((d, idx) => (
-                      <li key={idx} className={styles.payloadItem}>
-                        &gt; {d}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <span className={styles.noPayload}>NO ACTIVE DESIGNS [COMING SOON]</span>
-                )}
-              </div>
-
-              <Link href={`/creators/${c.id}`} className={styles.inspectBtn}>
-                VIEW PROFILE &gt;
-              </Link>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </main>
 
       <footer className={styles.footer}>
         <span>CREATORS LIST: ONLINE</span>
-        <span>TOTAL MEMBERS: 5</span>
+        <span>TOTAL MEMBERS: {activeCreators.length}</span>
       </footer>
     </div>
   );

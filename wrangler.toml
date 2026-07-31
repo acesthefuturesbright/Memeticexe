@@ -1,0 +1,9 @@
+name = "memetic-store"
+compatibility_date = "2024-04-03"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "memetic-db"
+database_id = "memetic-db-id-placeholder"
+preview_database_id = "DB"

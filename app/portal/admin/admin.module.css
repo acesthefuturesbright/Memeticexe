@@ -1,0 +1,316 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+}
+
+.main {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.adminHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 1.5rem;
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--subtle-text);
+  letter-spacing: 0.08em;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--foreground);
+}
+
+.sessionTag {
+  font-size: 0.7rem;
+  background-color: rgba(0, 255, 204, 0.05);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.dashboardLink {
+  font-size: 0.8rem;
+  color: var(--primary);
+  text-decoration: underline;
+  margin-top: 0.5rem;
+  display: inline-block;
+}
+
+.listSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 1.1rem;
+  color: var(--foreground);
+  font-weight: 700;
+}
+
+.tableCard {
+  background-color: var(--terminal-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.cardHeader {
+  background-color: #0b1113;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--subtle-text);
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.8rem;
+}
+
+.table th {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--subtle-text);
+  font-weight: 700;
+}
+
+.table td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+  color: var(--foreground);
+}
+
+.dateCol {
+  color: var(--subtle-text);
+  white-space: nowrap;
+}
+
+.handleCol {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btnApprove {
+  background-color: transparent;
+  border: 1px solid var(--success);
+  color: var(--success);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnApprove:hover {
+  background-color: var(--success);
+  color: var(--background);
+}
+
+.btnReject {
+  background-color: transparent;
+  border: 1px solid var(--error);
+  color: var(--error);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnReject:hover {
+  background-color: var(--error);
+  color: var(--background);
+}
+
+.emptyState {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--subtle-text);
+  font-size: 0.85rem;
+}
+
+/* Detail Drawer / Expansion */
+.expandedRow {
+  background-color: #070c0d;
+}
+
+.expandedContent {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.label {
+  font-size: 0.7rem;
+  color: var(--subtle-text);
+  font-weight: 700;
+}
+
+.value {
+  font-size: 0.85rem;
+  color: var(--foreground);
+  word-break: break-all;
+}
+
+.value a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+/* Approve Form */
+.approvalForm {
+  border-top: 1px dashed var(--border);
+  padding-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.formTitle {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.inputLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--subtle-text);
+}
+
+.inputField {
+  background-color: #030506;
+  border: 1px solid var(--border);
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  outline: none;
+}
+
+.inputField:focus {
+  border-color: var(--primary);
+}
+
+.formActions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.btnSubmitApprove {
+  background-color: var(--success);
+  border: 1px solid var(--success);
+  color: var(--background);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnSubmitApprove:hover {
+  box-shadow: 0 0 10px rgba(51, 255, 102, 0.4);
+}
+
+.btnCancel {
+  background-color: transparent;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btnCancel:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.loadingOverlay {
+  padding: 3rem;
+  text-align: center;
+  color: var(--primary);
+}
+
+.footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+  color: var(--subtle-text);
+}

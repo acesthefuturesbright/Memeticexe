@@ -79,7 +79,7 @@ export default function Store() {
       <main className={styles.main}>
         <section className={styles.storeHeader}>
           <div className={styles.glitchHeader}>
-            <span className={styles.subtitle}>// ALL PRODUCTS</span>
+            <span className={styles.subtitle}>{"// ALL PRODUCTS"}</span>
             <h1 className={`${styles.title} glitch-text`}>MERCH SHOP</h1>
           </div>
           <p className={styles.description}>

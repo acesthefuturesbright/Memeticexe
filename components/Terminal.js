@@ -25,6 +25,10 @@ export default function Terminal() {
   const terminalEndRef = useRef(null);
   const inputRef = useRef(null);
 
+  const scrollToBottom = () => {
+    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   useEffect(() => {
     scrollToBottom();
   }, [history]);
@@ -37,10 +41,6 @@ export default function Terminal() {
       return () => clearInterval(interval);
     }
   }, [destructCountdown]);
-
-  const scrollToBottom = () => {
-    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
 
   const focusInput = () => {
     inputRef.current?.focus();

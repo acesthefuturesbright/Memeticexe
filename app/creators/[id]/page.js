@@ -2,9 +2,14 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
+import { db } from "@/db/index.js";
+import { creators } from "@/db/schema.js";
+import { eq } from "drizzle-orm";
 import styles from "./profile.module.css";
 
-const CREATORS = [
+export const dynamic = "force-dynamic";
+
+const STATIC_CREATORS = [
   {
     id: "mrsme",
     name: "MrsMe",
@@ -15,7 +20,7 @@ const CREATORS = [
     payoutInfo: "$3.00 / shirt payout",
     bio: "Concept work across Pork pointing, Pond logo, and More Swaps More Drops. Leads layout and composition print processes.",
     twitter: "@mrsmedoteth",
-    isOnline: true
+    isOnline: 1
   },
   {
     id: "redacted",
@@ -27,7 +32,7 @@ const CREATORS = [
     payoutInfo: "$2.00 / shirt payout",
     bio: "A collaborative community project focused on funny, redacted text designs.",
     twitter: "@memeticexe",
-    isOnline: true
+    isOnline: 1
   },
   {
     id: "kingsam",
@@ -39,7 +44,7 @@ const CREATORS = [
     payoutInfo: "$1.00 / shirt payout",
     bio: "Graphic artist and community coordinator. Cap and sticker designer.",
     twitter: "@kingsam",
-    isOnline: false
+    isOnline: 0
   },
   {
     id: "lilpork",
@@ -51,7 +56,7 @@ const CREATORS = [
     payoutInfo: "$1.00 / shirt payout",
     bio: "Digital artist making cool character illustrations and funny meme designs.",
     twitter: "@lilpork",
-    isOnline: true
+    isOnline: 1
   },
   {
     id: "dolo",
@@ -63,7 +68,7 @@ const CREATORS = [
     payoutInfo: "$1.00 / shirt payout",
     bio: "Meme creator and community helper. Building cool merch concepts.",
     twitter: "@dolodoteth",
-    isOnline: false
+    isOnline: 0
   }
 ];
 
@@ -110,15 +115,25 @@ const PRODUCTS = [
   }
 ];
 
-export async function generateStaticParams() {
-  return CREATORS.map((c) => ({
-    id: c.id
-  }));
-}
-
 export default async function CreatorProfile({ params }) {
   const { id } = await params;
-  const creator = CREATORS.find((c) => c.id === id);
+
+  let creator = null;
+
+  try {
+    const dbCreators = await db.select().from(creators).where(eq(creators.id, id)).limit(1);
+    if (dbCreators.length > 0) {
+      creator = dbCreators[0];
+    }
+  } catch (error) {
+    console.error("DB Creator query error:", error);
+  }
+
+  // Fallback to static data if not found in database
+  if (!creator) {
+    creator = STATIC_CREATORS.find((c) => c.id === id);
+  }
+
   const creatorProducts = PRODUCTS.filter((p) => p.creatorId === id);
 
   if (!creator) {
@@ -168,8 +183,8 @@ export default async function CreatorProfile({ params }) {
                 </div>
                 <div className={styles.metaItem}>
                   <span className={styles.metaLabel}>TWITTER / X:</span>
-                  <a href={`https://x.com/${creator.twitter.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className={styles.twitter}>
-                    {creator.twitter}
+                  <a href={`https://x.com/${creator.twitter ? creator.twitter.replace("@", "") : ""}`} target="_blank" rel="noopener noreferrer" className={styles.twitter}>
+                    {creator.twitter || "[NONE]"}
                   </a>
                 </div>
               </div>
@@ -177,7 +192,7 @@ export default async function CreatorProfile({ params }) {
           </div>
 
           <div className={styles.bioBlock}>
-            <p>{creator.bio}</p>
+            <p>{creator.bio || "[NO BIOGRAPHY]"}</p>
           </div>
 
           {/* Royalty Tier Metric box */}

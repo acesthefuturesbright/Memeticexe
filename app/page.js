@@ -39,7 +39,7 @@ export default function Home() {
         {/* HERO SECTION */}
         <section className={styles.heroSection}>
           <div className={styles.glitchHeader}>
-            <span className={styles.subtitle}>// creator-powered t-shirt store</span>
+            <span className={styles.subtitle}>{"// creator-powered t-shirt store"}</span>
             <h1 className={`${styles.title} glitch-text`}>MEMETIC.EXE</h1>
           </div>
 

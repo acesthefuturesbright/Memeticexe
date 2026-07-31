@@ -1,0 +1,253 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+}
+
+.main {
+  flex: 1;
+  max-width: 680px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.applyHeader {
+  margin-bottom: 2rem;
+}
+
+.glitchHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--subtle-text);
+  letter-spacing: 0.08em;
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--foreground);
+  letter-spacing: -0.02em;
+}
+
+.description {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--subtle-text);
+}
+
+.formCard {
+  background-color: var(--terminal-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.cardHeader {
+  background-color: #0b1113;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--subtle-text);
+  letter-spacing: 0.05em;
+}
+
+.formContent {
+  padding: 1.8rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fieldLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--foreground);
+  letter-spacing: 0.05em;
+}
+
+.required {
+  color: var(--secondary);
+  margin-left: 0.2rem;
+}
+
+.textInput {
+  background-color: #070b0c;
+  border: 1px solid var(--border);
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  padding: 0.65rem;
+  border-radius: 4px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.textInput:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 8px rgba(0, 255, 204, 0.15);
+}
+
+.textArea {
+  background-color: #070b0c;
+  border: 1px solid var(--border);
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  padding: 0.65rem;
+  border-radius: 4px;
+  outline: none;
+  min-height: 100px;
+  resize: vertical;
+  transition: all 0.3s ease;
+}
+
+.textArea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 8px rgba(0, 255, 204, 0.15);
+}
+
+.checkboxLabel {
+  font-size: 0.8rem;
+  color: var(--foreground);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  cursor: pointer;
+  line-height: 1.4;
+  margin-top: 0.5rem;
+}
+
+.checkboxLabel input {
+  margin-top: 0.15rem;
+}
+
+.submitBtn {
+  background-color: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-top: 1rem;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background-color: var(--primary);
+  color: var(--background);
+  box-shadow: 0 0 12px rgba(0, 255, 204, 0.4);
+}
+
+.submitBtn:disabled {
+  border-color: var(--border);
+  color: var(--subtle-text);
+  cursor: not-allowed;
+}
+
+.errorBox {
+  background-color: rgba(255, 51, 102, 0.05);
+  border: 1px solid var(--error);
+  color: var(--error);
+  padding: 0.8rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.successScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2.5rem 1rem;
+  gap: 1.2rem;
+}
+
+.successIcon {
+  font-size: 3rem;
+  color: var(--success);
+  font-family: var(--font-mono);
+  border: 2px solid var(--success);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(51, 255, 102, 0.2);
+}
+
+.successTitle {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--success);
+  letter-spacing: -0.01em;
+}
+
+.successText {
+  font-size: 0.85rem;
+  color: var(--foreground);
+  line-height: 1.6;
+  max-width: 440px;
+}
+
+.backBtn {
+  display: inline-block;
+  background-color: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  transition: all 0.25s ease;
+  margin-top: 1rem;
+}
+
+.backBtn:hover {
+  background-color: var(--primary);
+  color: var(--background);
+  box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+}
+
+.footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+  color: var(--subtle-text);
+  letter-spacing: 0.05em;
+}

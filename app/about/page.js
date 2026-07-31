@@ -49,7 +49,7 @@ export default function About() {
       <main className={styles.main}>
         <section className={styles.header}>
           <div className={styles.glitchHeader}>
-            <span className={styles.subtitle}>// SYSTEM MANIFESTO</span>
+            <span className={styles.subtitle}>{"// SYSTEM MANIFESTO"}</span>
             <h1 className={`${styles.title} glitch-text`}>THE MANIFESTO</h1>
           </div>
           <p className={styles.description}>
