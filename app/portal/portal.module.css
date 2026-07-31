@@ -866,4 +866,32 @@
   cursor: pointer;
 }
 
+.applyLinkContainer {
+  margin-top: 1rem;
+  border-top: 1px dashed var(--border);
+  padding-top: 1.2rem;
+  text-align: center;
+}
+
+.applyText {
+  font-size: 0.8rem;
+  color: var(--subtle-text);
+  margin: 0;
+}
+
+.applyLink {
+  color: var(--primary);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--primary);
+  font-weight: 700;
+  transition: all 0.25s ease;
+  padding-bottom: 2px;
+}
+
+.applyLink:hover {
+  color: #ffffff;
+  border-bottom-color: #ffffff;
+  text-shadow: 0 0 8px rgba(0, 255, 204, 0.5);
+}
+
 

@@ -129,6 +129,13 @@ export default function LoginForm() {
               </button>
             </form>
           )}
+
+          <div className={styles.applyLinkContainer}>
+            <p className={styles.applyText}>
+              {"Not a creator yet? "}
+              <a href="/apply" className={styles.applyLink}>Apply to join the program</a>
+            </p>
+          </div>
         </div>
       </div>
 

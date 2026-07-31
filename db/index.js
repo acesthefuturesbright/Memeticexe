@@ -12,8 +12,21 @@ function initDb() {
 
   if (d1) {
     dbInstance = drizzleD1(d1, { schema });
+  } else if (globalThis.process?.env?.NEXT_RUNTIME === "edge") {
+    // In the local Next.js Edge runtime simulator, native filesystem access is unavailable.
+    // Return a throwing proxy so that pages catch the error and fall back to static data gracefully.
+    dbInstance = new Proxy({}, {
+      get(target, prop) {
+        return () => {
+          throw new Error(
+            "Local SQLite filesystem access is not supported in the simulated Edge runtime. " +
+            "Please deploy to Cloudflare Pages to use the D1 database."
+          );
+        };
+      }
+    });
   } else {
-    // Local SQLite database fallback
+    // Local SQLite database fallback (Runs under standard Node.js for migrations and seeding)
     const client = createClient({
       url: "file:local.db",
     });
