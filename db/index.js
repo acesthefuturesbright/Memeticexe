@@ -1,6 +1,7 @@
 import { drizzle as drizzleD1 } from "drizzle-orm/d1";
 import { drizzle as drizzleLibsql } from "drizzle-orm/libsql";
 import { createClient } from "@libsql/client";
+import { getRequestContext } from "@cloudflare/next-on-pages";
 import * as schema from "./schema.js";
 
 let dbInstance;
@@ -8,7 +9,20 @@ let dbInstance;
 function initDb() {
   if (dbInstance) return dbInstance;
 
-  const d1 = globalThis.process?.env?.DB;
+  let d1 = null;
+  try {
+    const ctx = getRequestContext();
+    if (ctx?.env?.DB) {
+      d1 = ctx.env.DB;
+    }
+  } catch (e) {
+    // Fallback if not running in Cloudflare context
+  }
+
+  // Fallback to process.env.DB if mapped
+  if (!d1 && globalThis.process?.env?.DB) {
+    d1 = globalThis.process.env.DB;
+  }
 
   if (d1) {
     dbInstance = drizzleD1(d1, { schema });

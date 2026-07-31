@@ -6,6 +6,7 @@ import { creators, otpCodes } from "./db/schema.js";
 import { eq, and, gt } from "drizzle-orm";
 
 export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
   ...authConfig,
   providers: [
     Credentials({

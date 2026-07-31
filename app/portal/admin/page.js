@@ -1,5 +1,8 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+export const runtime = "edge";
+
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Link from "next/link";
@@ -26,6 +29,10 @@ export default function AdminPage() {
     setLoading(true);
     try {
       const response = await fetch("/api/admin/applications");
+      if (response.status === 401) {
+        window.location.href = "/portal";
+        return;
+      }
       if (response.ok) {
         const data = await response.json();
         setApplications(data);

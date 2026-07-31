@@ -1,5 +1,8 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+export const runtime = "edge";
+
 import { useState } from "react";
 import Header from "@/components/Header";
 import Link from "next/link";
