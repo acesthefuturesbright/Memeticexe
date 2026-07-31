@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "node build.js",
+    "build": "next build",
+    "pages:build": "npx @cloudflare/next-on-pages",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "next lint",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
     "db:seed": "npx tsx db/seed.js"
